@@ -53,6 +53,7 @@ function renderAllTables(allTeamData) {
                 <table class="w-full border-collapse">
                     <thead>
                         <tr class="bg-gray-700">
+                            <th class="px-4 py-3 text-left text-sm font-semibold text-green-400 border-b border-gray-600"></th>
                             <th class="px-4 py-3 text-left text-sm font-semibold text-green-400 border-b border-gray-600">Player</th>
                             <th class="px-4 py-3 text-center text-sm font-semibold text-green-400 border-b border-gray-600">Wildcard</th>
                             <th class="px-4 py-3 text-center text-sm font-semibold text-green-400 border-b border-gray-600">Divisional</th>
@@ -66,7 +67,7 @@ function renderAllTables(allTeamData) {
                     </tbody>
                     <tfoot>
                         <tr class="bg-gray-700 font-bold text-lg">
-                            <td class="px-4 py-3 text-sm font-bold text-green-400 border-t-2 border-green-500">TEAM TOTAL</td>
+                            <td class="px-4 py-3 text-sm font-bold text-green-400 border-t-2 border-green-500" colspan="2">TEAM TOTAL</td>
                             <td class="px-4 py-3 text-sm text-center border-t-2 border-green-500">${formatScore(teamData.teamTotal.wildcard)}</td>
                             <td class="px-4 py-3 text-sm text-center border-t-2 border-green-500">${formatScore(teamData.teamTotal.divisional)}</td>
                             <td class="px-4 py-3 text-sm text-center border-t-2 border-green-500">${formatScore(teamData.teamTotal.championship)}</td>
@@ -81,11 +82,11 @@ function renderAllTables(allTeamData) {
         tablesContainer.appendChild(teamSection);
     });
 }
-
 // Render table rows for a team's roster
 function renderTableRows(roster) {
     return roster.map((player, index) => `
         <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'}">
+            <td class="px-4 py-3 text-sm font-medium text-blue-400 border-b border-gray-700">${player.slot}</td>
             <td class="px-4 py-3 text-sm border-b border-gray-700">${player.playerName}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.wildcard)}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.divisional)}</td>
