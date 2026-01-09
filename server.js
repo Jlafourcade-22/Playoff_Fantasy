@@ -5,6 +5,7 @@ const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, updateTeam
 const { getPlayerGameStatsByWeek, getPlayerGameStatsByTeam, getPlayerGameProjectionsByWeek, getPlayerPropsByScoreID, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
 const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
 const { calculateFantasyPoints } = require('./utils/fantasyPoints');
+const { calculateWinProbabilities } = require('./utils/winProbability');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,6 +48,35 @@ app.get('/api/active-games/:round', (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch active games' });
+  }
+});
+
+// Get win probabilities for all teams
+app.get('/api/win-probabilities', (req, res) => {
+  try {
+    const data = readData();
+    
+    // Return stored win probabilities if available
+    if (data.winProbabilities) {
+      res.json({
+        simulations: 10000,
+        probabilities: data.winProbabilities,
+        timestamp: new Date().toISOString(),
+        cached: true
+      });
+    } else {
+      // Fall back to live calculation if not stored
+      const probabilities = calculateWinProbabilities(data.teams);
+      res.json({
+        simulations: 10000,
+        probabilities: probabilities,
+        timestamp: new Date().toISOString(),
+        cached: false
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching win probabilities:', error);
+    res.status(500).json({ error: 'Failed to fetch win probabilities' });
   }
 });
 

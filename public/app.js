@@ -19,6 +19,12 @@ let activeTeams = [];
 // Store eliminated teams globally
 let eliminatedTeams = [];
 
+// Store current sort configuration
+let currentSort = {
+    column: 'totalPoints',
+    direction: 'desc'
+};
+
 // Fetch and display fantasy data for all teams
 async function loadFantasyData() {
     try {
@@ -61,7 +67,24 @@ async function loadFantasyData() {
 }
 
 // Render standings table
-function renderStandings(allTeamData) {
+async function renderStandings(allTeamData) {
+    // Fetch win probabilities
+    let winProbData = {};
+    try {
+        const response = await fetch('/api/win-probabilities');
+        if (response.ok) {
+            const data = await response.json();
+            data.probabilities.forEach(team => {
+                winProbData[team.teamName] = {
+                    expectedTotal: team.expectedTotal,
+                    winProbability: team.winProbability
+                };
+            });
+        }
+    } catch (err) {
+        console.error('Failed to fetch win probabilities:', err);
+    }
+    
     // Calculate standings
     const standings = allTeamData.map(teamData => {
         const totalPoints = teamData.teamTotal.total || 0;
@@ -71,15 +94,19 @@ function renderStandings(allTeamData) {
             !eliminatedTeams.includes(player.nflTeam)
         ).length;
         
+        const probInfo = winProbData[teamData.teamName] || {};
+        
         return {
             teamName: teamData.teamName,
             totalPoints: totalPoints,
+            expectedPoints: probInfo.expectedTotal || 0,
+            winProbability: probInfo.winProbability || 0,
             playersRemaining: playersRemaining
         };
     });
     
-    // Sort by total points (descending)
-    standings.sort((a, b) => b.totalPoints - a.totalPoints);
+    // Sort standings based on current sort configuration
+    sortStandings(standings);
     
     // Render standings rows
     standingsBody.innerHTML = standings.map((standing, index) => {
@@ -92,11 +119,63 @@ function renderStandings(allTeamData) {
                 <td class="px-4 py-3 text-sm font-medium border-b border-gray-700">
                     <a href="#team-${standing.teamName}" class="text-blue-400 hover:text-blue-300 hover:underline cursor-pointer">${standing.teamName}</a>
                 </td>
-                <td class="px-4 py-3 text-sm text-center font-semibold text-green-400 border-b border-gray-700">${standing.totalPoints.toFixed(1)}</td>
+                <td class="px-4 py-3 text-sm text-center font-semibold text-yellow-400 border-b border-gray-700">${standing.totalPoints.toFixed(1)}</td>
+                <td class="px-4 py-3 text-sm text-center text-purple-400 border-b border-gray-700">${standing.expectedPoints.toFixed(1)}</td>
+                <td class="px-4 py-3 text-sm text-center font-semibold text-green-400 border-b border-gray-700">${standing.winProbability.toFixed(1)}%</td>
                 <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${standing.playersRemaining}</td>
             </tr>
         `;
     }).join('');
+}
+
+// Sort standings array based on current sort configuration
+function sortStandings(standings) {
+    const { column, direction } = currentSort;
+    
+    standings.sort((a, b) => {
+        let aVal = a[column];
+        let bVal = b[column];
+        
+        if (direction === 'asc') {
+            return aVal - bVal;
+        } else {
+            return bVal - aVal;
+        }
+    });
+    
+    // Update sort indicators in UI
+    updateSortIndicators();
+}
+
+// Update visual sort indicators
+function updateSortIndicators() {
+    const columns = ['totalPoints', 'expectedPoints', 'winProbability', 'playersRemaining'];
+    
+    columns.forEach(col => {
+        const header = document.getElementById(`sort-${col}`);
+        if (header) {
+            const indicator = header.querySelector('.sort-indicator');
+            if (col === currentSort.column) {
+                indicator.textContent = currentSort.direction === 'desc' ? '▼' : '▲';
+            } else {
+                indicator.textContent = '';
+            }
+        }
+    });
+}
+
+// Handle column header click for sorting
+function handleSortClick(column) {
+    // Toggle direction if clicking same column, otherwise default to desc
+    if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'desc' ? 'asc' : 'desc';
+    } else {
+        currentSort.column = column;
+        currentSort.direction = 'desc';
+    }
+    
+    // Reload the data to trigger re-render with new sort
+    loadFantasyData();
 }
 
 // Render all team tables

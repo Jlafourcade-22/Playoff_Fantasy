@@ -54,7 +54,13 @@ function getFantasyData(teamName) {
     championship: team.scores.championship[index],
     superbowl: team.scores.superbowl[index],
     total: (team.scores.wildcard[index] || 0) + (team.scores.divisional[index] || 0) + 
-           (team.scores.championship[index] || 0) + (team.scores.superbowl[index] || 0)
+           (team.scores.championship[index] || 0) + (team.scores.superbowl[index] || 0),
+    expectedWildcard: team.expectedPoints?.wildcard[index] || 0,
+    expectedDivisional: team.expectedPoints?.divisional[index] || 0,
+    expectedChampionship: team.expectedPoints?.championship[index] || 0,
+    expectedSuperbowl: team.expectedPoints?.superbowl[index] || 0,
+    expectedTotal: (team.expectedPoints?.wildcard[index] || 0) + (team.expectedPoints?.divisional[index] || 0) + 
+                   (team.expectedPoints?.championship[index] || 0) + (team.expectedPoints?.superbowl[index] || 0)
   }));
 
   // Calculate team totals
@@ -65,9 +71,15 @@ function getFantasyData(teamName) {
     divisional: team.scores.divisional.reduce((a, b) => a + (b || 0), 0),
     championship: team.scores.championship.reduce((a, b) => a + (b || 0), 0),
     superbowl: team.scores.superbowl.reduce((a, b) => a + (b || 0), 0),
-    total: 0
+    total: 0,
+    expectedWildcard: team.expectedPoints?.wildcard.reduce((a, b) => a + (b || 0), 0) || 0,
+    expectedDivisional: team.expectedPoints?.divisional.reduce((a, b) => a + (b || 0), 0) || 0,
+    expectedChampionship: team.expectedPoints?.championship.reduce((a, b) => a + (b || 0), 0) || 0,
+    expectedSuperbowl: team.expectedPoints?.superbowl.reduce((a, b) => a + (b || 0), 0) || 0,
+    expectedTotal: 0
   };
   teamTotal.total = teamTotal.wildcard + teamTotal.divisional + teamTotal.championship + teamTotal.superbowl;
+  teamTotal.expectedTotal = teamTotal.expectedWildcard + teamTotal.expectedDivisional + teamTotal.expectedChampionship + teamTotal.expectedSuperbowl;
 
   return {
     teamName: team.teamName,

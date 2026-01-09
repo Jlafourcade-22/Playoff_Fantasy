@@ -13,6 +13,19 @@
         .fade-in {
             animation: fadeIn 0.5s ease-out;
         }
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+        .sortable:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .sort-indicator {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 0.75em;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen py-8 px-4">
@@ -46,8 +59,10 @@
                             <tr class="bg-gray-700">
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-yellow-400 border-b border-gray-600">Rank</th>
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-yellow-400 border-b border-gray-600">Team</th>
-                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600">Total Points</th>
-                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600">Players Remaining</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600 sortable" onclick="handleSortClick('totalPoints')" id="sort-totalPoints">Total Points <span class="sort-indicator">▼</span></th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-purple-400 border-b border-gray-600 sortable" onclick="handleSortClick('expectedPoints')" id="sort-expectedPoints">Expected Points <span class="sort-indicator"></span></th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-green-400 border-b border-gray-600 sortable" onclick="handleSortClick('winProbability')" id="sort-winProbability">Win % <span class="sort-indicator"></span></th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600 sortable" onclick="handleSortClick('playersRemaining')" id="sort-playersRemaining">Players Remaining <span class="sort-indicator"></span></th>
                             </tr>
                         </thead>
                         <tbody id="standingsBody">
