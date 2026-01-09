@@ -12,6 +12,7 @@
     "championship": [],
     "superbowl": []
   },
+  "eliminatedTeams": ["CHI"],
   "teams": [
     {
       "teamName": "Brady",
@@ -27,10 +28,10 @@
         { "slot": "FLEX", "playerName": "Quentin Johnson", "draftRound": 8, "nflTeam": "LAC" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -47,10 +48,10 @@
         { "slot": "FLEX", "playerName": "Jayden Reed", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -67,10 +68,10 @@
         { "slot": "FLEX", "playerName": "Kyle Monongai", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -87,10 +88,10 @@
         { "slot": "FLEX", "playerName": "DJ Moore", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -107,10 +108,10 @@
         { "slot": "FLEX", "playerName": "Tetairoa McMillan", "draftRound": 8, "nflTeam": "CAR" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -127,10 +128,10 @@
         { "slot": "FLEX", "playerName": "Romeo Doubs", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -147,10 +148,10 @@
         { "slot": "FLEX", "playerName": "Demario Douglas", "draftRound": 8, "nflTeam": "NE" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     },
     {
@@ -167,10 +168,10 @@
         { "slot": "FLEX", "playerName": "Blake Corum", "draftRound": 8, "nflTeam": "LAR" }
       ],
       "scores": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [null, null, null, null, null, null, null, null],
+        "divisional": [null, null, null, null, null, null, null, null],
+        "championship": [null, null, null, null, null, null, null, null],
+        "superbowl": [null, null, null, null, null, null, null, null]
       }
     }
   ]

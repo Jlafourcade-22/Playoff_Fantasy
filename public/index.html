@@ -34,6 +34,30 @@
             <p class="text-red-400 text-lg">Failed to load fantasy data. Please try again.</p>
         </div>
 
+        <!-- Standings Table -->
+        <div id="standingsContainer" class="hidden fade-in mb-8">
+            <div class="bg-gray-800 rounded-lg shadow-2xl overflow-hidden">
+                <div class="bg-gradient-to-r from-yellow-600 to-yellow-700 px-6 py-4">
+                    <h2 class="text-2xl font-bold text-white">🏆 Live Standings</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-yellow-400 border-b border-gray-600">Rank</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-yellow-400 border-b border-gray-600">Team</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600">Total Points</th>
+                                <th class="px-4 py-3 text-center text-sm font-semibold text-yellow-400 border-b border-gray-600">Players Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standingsBody">
+                            <!-- Standings rows will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- Tables Container -->
         <div id="tablesContainer" class="hidden fade-in space-y-8">
             <!-- Team tables will be dynamically inserted here -->

@@ -9,10 +9,15 @@ const CURRENT_ROUND = 'wildcard';
 // DOM elements
 const loading = document.getElementById('loading');
 const error = document.getElementById('error');
+const standingsContainer = document.getElementById('standingsContainer');
+const standingsBody = document.getElementById('standingsBody');
 const tablesContainer = document.getElementById('tablesContainer');
 
 // Store active teams globally
 let activeTeams = [];
+
+// Store eliminated teams globally
+let eliminatedTeams = [];
 
 // Fetch and display fantasy data for all teams
 async function loadFantasyData() {
@@ -22,6 +27,7 @@ async function loadFantasyData() {
         if (activeGamesResponse.ok) {
             const activeGamesData = await activeGamesResponse.json();
             activeTeams = activeGamesData.activeTeams || [];
+            eliminatedTeams = activeGamesData.eliminatedTeams || [];
         }
 
         // Fetch all teams
@@ -37,17 +43,60 @@ async function loadFantasyData() {
         );
         const allTeamData = await Promise.all(teamDataPromises);
 
+        // Render standings table
+        renderStandings(allTeamData);
+        
         // Render all tables
         renderAllTables(allTeamData);
         
         // Hide loading, show tables
         loading.classList.add('hidden');
+        standingsContainer.classList.remove('hidden');
         tablesContainer.classList.remove('hidden');
     } catch (err) {
         console.error('Error loading fantasy data:', err);
         loading.classList.add('hidden');
         error.classList.remove('hidden');
     }
+}
+
+// Render standings table
+function renderStandings(allTeamData) {
+    // Calculate standings
+    const standings = allTeamData.map(teamData => {
+        const totalPoints = teamData.teamTotal.total || 0;
+        
+        // Count players remaining (not on eliminated teams)
+        const playersRemaining = teamData.roster.filter(player => 
+            !eliminatedTeams.includes(player.nflTeam)
+        ).length;
+        
+        return {
+            teamName: teamData.teamName,
+            totalPoints: totalPoints,
+            playersRemaining: playersRemaining
+        };
+    });
+    
+    // Sort by total points (descending)
+    standings.sort((a, b) => b.totalPoints - a.totalPoints);
+    
+    // Render standings rows
+    standingsBody.innerHTML = standings.map((standing, index) => {
+        const rankEmoji = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+        const rankClass = index === 0 ? 'text-yellow-400 font-bold' : index === 1 ? 'text-gray-300 font-semibold' : index === 2 ? 'text-orange-400 font-semibold' : '';
+        
+        return `
+            <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} hover:bg-gray-700 transition-colors">
+                <td class="px-4 py-3 text-sm ${rankClass} border-b border-gray-700">${rankEmoji}</td>
+                <td class="px-4 py-3 text-sm font-medium border-b border-gray-700">
+                    <a href="#team-${standing.teamName}" class="text-blue-400 hover:text-blue-300 hover:underline cursor-pointer">${standing.teamName}</a>
+                </td>
+                <td class="px-4 py-3 text-sm text-center font-semibold text-green-400 border-b border-gray-700">${standing.totalPoints.toFixed(1)}</td>
+                <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${standing.playersRemaining}</td>
+            </tr>
+        `;
+    }).join('');
 }
 
 // Render all team tables
@@ -57,6 +106,7 @@ function renderAllTables(allTeamData) {
     allTeamData.forEach(teamData => {
         const teamSection = document.createElement('div');
         teamSection.className = 'bg-gray-800 rounded-lg shadow-2xl overflow-hidden';
+        teamSection.id = `team-${teamData.teamName}`;
         
         teamSection.innerHTML = `
             <div class="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4">
@@ -101,11 +151,20 @@ function renderAllTables(allTeamData) {
 function renderTableRows(roster) {
     return roster.map((player, index) => {
         const isActive = activeTeams.includes(player.nflTeam);
-        const activeClass = isActive ? 'bg-green-900/30 border-l-4 border-green-500' : '';
-        const pulseClass = isActive ? 'animate-pulse' : '';
+        const isEliminated = eliminatedTeams.includes(player.nflTeam);
+        
+        let statusClass = '';
+        let pulseClass = '';
+        
+        if (isActive) {
+            statusClass = 'bg-green-900/30 border-l-4 border-green-500';
+            pulseClass = 'animate-pulse';
+        } else if (isEliminated) {
+            statusClass = 'bg-red-900/30 border-l-4 border-red-500';
+        }
         
         return `
-        <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} ${activeClass}">
+        <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} ${statusClass}">
             <td class="px-4 py-3 text-sm font-medium text-blue-400 border-b border-gray-700 ${pulseClass}">${player.slot}</td>
             <td class="px-4 py-3 text-sm border-b border-gray-700 ${pulseClass}">${player.playerName}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.wildcard)}</td>
@@ -120,8 +179,11 @@ function renderTableRows(roster) {
 
 // Format score display
 function formatScore(score) {
-    if (score === 0) {
+    if (score === null || score === undefined) {
         return '<span class="text-gray-500">-</span>';
+    }
+    if (score === 0) {
+        return '0.0';
     }
     return score.toFixed(1);
 }

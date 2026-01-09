@@ -42,6 +42,7 @@ app.get('/api/active-games/:round', (req, res) => {
     res.json({
       round,
       activeTeams,
+      eliminatedTeams: data.eliminatedTeams || [],
       totalActiveGames: activeTeams.length / 2
     });
   } catch (error) {

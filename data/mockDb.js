@@ -53,18 +53,18 @@ function getFantasyData(teamName) {
     divisional: team.scores.divisional[index],
     championship: team.scores.championship[index],
     superbowl: team.scores.superbowl[index],
-    total: team.scores.wildcard[index] + team.scores.divisional[index] + 
-           team.scores.championship[index] + team.scores.superbowl[index]
+    total: (team.scores.wildcard[index] || 0) + (team.scores.divisional[index] || 0) + 
+           (team.scores.championship[index] || 0) + (team.scores.superbowl[index] || 0)
   }));
 
   // Calculate team totals
   const teamTotal = {
     slot: 'TEAM TOTAL',
     playerName: '',
-    wildcard: team.scores.wildcard.reduce((a, b) => a + b, 0),
-    divisional: team.scores.divisional.reduce((a, b) => a + b, 0),
-    championship: team.scores.championship.reduce((a, b) => a + b, 0),
-    superbowl: team.scores.superbowl.reduce((a, b) => a + b, 0),
+    wildcard: team.scores.wildcard.reduce((a, b) => a + (b || 0), 0),
+    divisional: team.scores.divisional.reduce((a, b) => a + (b || 0), 0),
+    championship: team.scores.championship.reduce((a, b) => a + (b || 0), 0),
+    superbowl: team.scores.superbowl.reduce((a, b) => a + (b || 0), 0),
     total: 0
   };
   teamTotal.total = teamTotal.wildcard + teamTotal.divisional + teamTotal.championship + teamTotal.superbowl;
