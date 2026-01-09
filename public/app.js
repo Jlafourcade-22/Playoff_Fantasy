@@ -125,7 +125,7 @@ async function renderStandings(allTeamData) {
                     <a href="#team-${standing.teamName}" class="text-blue-400 hover:text-blue-300 hover:underline cursor-pointer">${standing.teamName}</a>
                 </td>
                 <td class="px-4 py-3 text-sm text-center font-semibold text-yellow-400 border-b border-gray-700">${standing.totalPoints.toFixed(1)}</td>
-                <td class="px-4 py-3 text-sm text-center text-purple-400 border-b border-gray-700">${standing.expectedPoints.toFixed(1)}</td>
+                <td class="px-4 py-3 text-sm text-center text-purple-400 border-b border-gray-700 mobile-hide">${standing.expectedPoints.toFixed(1)}</td>
                 <td class="px-4 py-3 text-sm text-center font-semibold text-green-400 border-b border-gray-700">${standing.winProbability.toFixed(1)}%</td>
                 <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${standing.playersRemaining}</td>
             </tr>
