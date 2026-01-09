@@ -1,15 +1,29 @@
 // API endpoints
 const TEAMS_API_URL = '/api/teams';
 const FANTASY_DATA_API_URL = '/api/fantasy-data';
+const ACTIVE_GAMES_API_URL = '/api/active-games';
+
+// Current round (can be made dynamic later)
+const CURRENT_ROUND = 'wildcard';
 
 // DOM elements
 const loading = document.getElementById('loading');
 const error = document.getElementById('error');
 const tablesContainer = document.getElementById('tablesContainer');
 
+// Store active teams globally
+let activeTeams = [];
+
 // Fetch and display fantasy data for all teams
 async function loadFantasyData() {
     try {
+        // Fetch active games first
+        const activeGamesResponse = await fetch(`${ACTIVE_GAMES_API_URL}/${CURRENT_ROUND}`);
+        if (activeGamesResponse.ok) {
+            const activeGamesData = await activeGamesResponse.json();
+            activeTeams = activeGamesData.activeTeams || [];
+        }
+
         // Fetch all teams
         const teamsResponse = await fetch(TEAMS_API_URL);
         if (!teamsResponse.ok) {
@@ -82,19 +96,26 @@ function renderAllTables(allTeamData) {
         tablesContainer.appendChild(teamSection);
     });
 }
+
 // Render table rows for a team's roster
 function renderTableRows(roster) {
-    return roster.map((player, index) => `
-        <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'}">
-            <td class="px-4 py-3 text-sm font-medium text-blue-400 border-b border-gray-700">${player.slot}</td>
-            <td class="px-4 py-3 text-sm border-b border-gray-700">${player.playerName}</td>
+    return roster.map((player, index) => {
+        const isActive = activeTeams.includes(player.nflTeam);
+        const activeClass = isActive ? 'bg-green-900/30 border-l-4 border-green-500' : '';
+        const pulseClass = isActive ? 'animate-pulse' : '';
+        
+        return `
+        <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} ${activeClass}">
+            <td class="px-4 py-3 text-sm font-medium text-blue-400 border-b border-gray-700 ${pulseClass}">${player.slot}</td>
+            <td class="px-4 py-3 text-sm border-b border-gray-700 ${pulseClass}">${player.playerName}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.wildcard)}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.divisional)}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.championship)}</td>
             <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.superbowl)}</td>
             <td class="px-4 py-3 text-sm text-center font-semibold text-yellow-400 border-b border-gray-700">${formatScore(player.total)}</td>
         </tr>
-    `).join('');
+    `;
+    }).join('');
 }
 
 // Format score display

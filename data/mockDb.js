@@ -48,6 +48,7 @@ function getFantasyData(teamName) {
   const data = team.roster.map((player, index) => ({
     slot: player.slot,
     playerName: player.playerName,
+    nflTeam: player.nflTeam,
     wildcard: team.scores.wildcard[index],
     divisional: team.scores.divisional[index],
     championship: team.scores.championship[index],

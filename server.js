@@ -30,6 +30,25 @@ app.get('/api/teams', (req, res) => {
   }
 });
 
+// Get active games for a round
+app.get('/api/active-games/:round', (req, res) => {
+  try {
+    const round = req.params.round.toLowerCase();
+    const data = readData();
+    const games = data.nflGames[round] || [];
+    
+    const activeTeams = getActiveTeams(games);
+    
+    res.json({
+      round,
+      activeTeams,
+      totalActiveGames: activeTeams.length / 2
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch active games' });
+  }
+});
+
 // Get fantasy data for a specific team
 app.get('/api/fantasy-data/:teamName', (req, res) => {
   try {
