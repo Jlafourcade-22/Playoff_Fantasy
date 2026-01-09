@@ -1,343 +1,1557 @@
-{
-  "nflGames": {
-    "wildcard": [
-      {
-        "homeTeam": "CAR",
-        "awayTeam": "LAR",
-        "gameTime": "2026-01-10T21:30:00Z"
-      },
-      {
-        "homeTeam": "CHI",
-        "awayTeam": "GB",
-        "gameTime": "2026-01-11T01:00:00Z"
-      },
-      {
-        "homeTeam": "JAX",
-        "awayTeam": "BUF",
-        "gameTime": "2026-01-11T18:00:00Z"
-      },
-      {
-        "homeTeam": "PHI",
-        "awayTeam": "SF",
-        "gameTime": "2026-01-11T21:30:00Z"
-      },
-      {
-        "homeTeam": "NE",
-        "awayTeam": "LAC",
-        "gameTime": "2026-01-12T01:00:00Z"
-      },
-      {
-        "homeTeam": "PIT",
-        "awayTeam": "HOU",
-        "gameTime": "2026-01-13T01:00:00Z"
-      }
-    ],
-    "divisional": [],
-    "championship": [],
-    "superbowl": []
-  },
-  "eliminatedTeams": [],
-  "teamProbabilities": {
-    "PHI": [1, 0.705, 0.267, 0.093],
-    "BUF": [1, 0.519, 0.145, 0.055],
-    "LAR": [1, 0.861, 0.443, 0.024],
-    "CHI": [1, 0.485, 0.307, 0.098],
-    "GB": [1, 0.553, 0.103, 0.032],
-    "JAX": [1, 0.519, 0.293, 0.164],
-    "SF": [1, 0.335, 0.124, 0.044],
-    "NE": [1, 0.664, 0.47, 0.27],
-    "LAC": [1, 0.375, 0.081, 0.024],
-    "PIT": [1, 0.423, 0.18, 0.065],
-    "HOU": [1, 0.618, 0.227, 0.107],
-    "CAR": [1, 0.178, 0.051, 0.011],
-    "SEA": [0, 1, 0.706, 0.483],
-    "DEN": [0, 1, 0.604, 0.315]
-  },
-  "teams": [
-    {
-      "teamName": "Brady",
-      "coach": "Top Coon",
-      "roster": [
-        {"slot":"QB", "playerName":"Jalen Hurts", "draftRound":2, "nflTeam":"PHI"},
-        {"slot":"RB", "playerName":"Deandre Swift", "draftRound":5, "nflTeam":"CHI"},
-        {"slot":"WR", "playerName":"Puca Nacua", "draftRound":1, "nflTeam":"LAR"},
-        {"slot":"WR", "playerName":"Courtland Sutton", "draftRound":3, "nflTeam":"DEN"},
-        {"slot":"TE", "playerName":"AJ Barner", "draftRound":7, "nflTeam":"SEA"},
-        {"slot":"FLEX", "playerName":"Jayden Higgins", "draftRound":4, "nflTeam":"HOU"},
-        {"slot":"FLEX", "playerName":"Zach Charbonnet", "draftRound":6, "nflTeam":"SEA"},
-        {"slot":"FLEX", "playerName":"Quentin Johnson", "draftRound":8, "nflTeam":"LAC"}
-      ],
-      "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
-      },
-      "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
-      },
-      "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
-      },
-      "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
-      }
-    },
+{"nflGames":{"wildcard":[{"homeTeam":"CAR","awayTeam":"LAR","gameTime":"2026-01-10T21:30:00Z"},{"homeTeam":"CHI","awayTeam":"GB","gameTime":"2026-01-11T01:00:00Z"},{"homeTeam":"JAX","awayTeam":"BUF","gameTime":"2026-01-11T18:00:00Z"},{"homeTeam":"PHI","awayTeam":"SF","gameTime":"2026-01-11T21:30:00Z"},{"homeTeam":"NE","awayTeam":"LAC","gameTime":"2026-01-12T01:00:00Z"},{"homeTeam":"PIT","awayTeam":"HOU","gameTime":"2026-01-13T01:00:00Z"}],"divisional":[],"championship":[],"superbowl":[]},"eliminatedTeams":[],"teamProbabilities":{"PHI":[1,0.705,0.267,0.093],"BUF":[1,0.519,0.145,0.055],"LAR":[1,0.861,0.443,0.024],"CHI":[1,0.485,0.307,0.098],"GB":[1,0.553,0.103,0.032],"JAX":[1,0.519,0.293,0.164],"SF":[1,0.335,0.124,0.044],"NE":[1,0.664,0.47,0.27],"LAC":[1,0.375,0.081,0.024],"PIT":[1,0.423,0.18,0.065],"HOU":[1,0.618,0.227,0.107],"CAR":[1,0.178,0.051,0.011],"SEA":[0,1,0.706,0.483],"DEN":[0,1,0.604,0.315]},
+  "teams":[{"teamName":"Brady","coach":"Top Coon","roster":[{"slot":"QB","playerName":"Jalen Hurts","draftRound":2,"nflTeam":"PHI"},{"slot":"RB","playerName":"D'andre Swift","draftRound":5,"nflTeam":"CHI"},{"slot":"WR","playerName":"Puka Nacua","draftRound":1,"nflTeam":"LAR"},{"slot":"WR","playerName":"Courtland Sutton","draftRound":3,"nflTeam":"DEN"},{"slot":"TE","playerName":"AJ Barner","draftRound":7,"nflTeam":"SEA"},{"slot":"FLEX","playerName":"Jayden Higgins","draftRound":4,"nflTeam":"HOU"},{"slot":"FLEX","playerName":"Zach Charbonnet","draftRound":6,"nflTeam":"SEA"},{"slot":"FLEX","playerName":"Quentin Johnston","draftRound":8,"nflTeam":"LAC"}],"scores":{"wildcard":[null,null,null,null,null,null,null,null],"divisional":[null,null,null,null,null,null,null,null],"championship":[null,null,null,null,null,null,null,null],"superbowl":[null,null,null,null,null,null,null,null]},"expectedPoints":{"wildcard":[0,0,0,0,0,0,0,0],"divisional":[0,0,0,0,0,0,0,0],"championship":[0,0,0,0,0,0,0,0],"superbowl":[0,0,0,0,0,0,0,0]},"projectedPoints":{"wildcard":[19.5,10.6,13.7,0,0,4.6,0,7.4],"divisional":[19.5,10.6,13.7,0,0,4.6,0,7.4],"championship":[19.5,10.6,13.7,0,0,4.6,0,7.4],"superbowl":[19.5,10.6,13.7,0,0,4.6,0,7.4]},"variance":{"wildcard":[0,0,0,0,0,0,0,0],"divisional":[0,0,0,0,0,0,0,0],"championship":[0,0,0,0,0,0,0,0],"superbowl":[0,0,0,0,0,0,0,0]}},
     {
       "teamName": "Robbie",
       "coach": "Emeka Egbuka",
       "roster": [
-        {"slot":"QB", "playerName":"Trevor Lawrence", "draftRound":3, "nflTeam":"JAX"},
-        {"slot":"RB", "playerName":"Rhamondre Stevenson", "draftRound":2, "nflTeam":"NE"},
-        {"slot":"WR", "playerName":"Jaxon Smith-Njigba", "draftRound":1, "nflTeam":"SEA"},
-        {"slot":"WR", "playerName":"Luther Burden II", "draftRound":4, "nflTeam":"CHI"},
-        {"slot":"TE", "playerName":"Tyler Higbee", "draftRound":6, "nflTeam":"LAR"},
-        {"slot":"FLEX", "playerName":"Khalil Shakir", "draftRound":5, "nflTeam":"BUF"},
-        {"slot":"FLEX", "playerName":"Rico Dowdle", "draftRound":7, "nflTeam":"CAR"},
-        {"slot":"FLEX", "playerName":"Jayden Reed", "draftRound":8, "nflTeam":"GB"}
+        {
+          "slot": "QB",
+          "playerName": "Trevor Lawrence",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Rhamondre Stevenson",
+          "draftRound": 2,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jaxon Smith-Njigba",
+          "draftRound": 1,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Luther Burden II",
+          "draftRound": 4,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Tyler Higbee",
+          "draftRound": 6,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Khalil Shakir",
+          "draftRound": 5,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Rico Dowdle",
+          "draftRound": 7,
+          "nflTeam": "CAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Jayden Reed",
+          "draftRound": 8,
+          "nflTeam": "GB"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          20.7,
+          10.4,
+          0,
+          6.8,
+          4.4,
+          7.2,
+          9.9,
+          7.3
+        ],
+        "divisional": [
+          20.7,
+          10.4,
+          0,
+          6.8,
+          4.4,
+          7.2,
+          9.9,
+          7.3
+        ],
+        "championship": [
+          20.7,
+          10.4,
+          0,
+          6.8,
+          4.4,
+          7.2,
+          9.9,
+          7.3
+        ],
+        "superbowl": [
+          20.7,
+          10.4,
+          0,
+          6.8,
+          4.4,
+          7.2,
+          9.9,
+          7.3
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Cody",
       "coach": "Jonathon Mingo",
       "roster": [
-        {"slot":"QB", "playerName":"Caleb Williams (GAY)", "draftRound":7, "nflTeam":"CHI"},
-        {"slot":"RB", "playerName":"Christian McCaffery", "draftRound":1, "nflTeam":"SF"},
-        {"slot":"WR", "playerName":"AJ Brown", "draftRound":2, "nflTeam":"PHI"},
-        {"slot":"WR", "playerName":"Rome Odunze II", "draftRound":5, "nflTeam":"CHI"},
-        {"slot":"TE", "playerName":"Colston Loveland", "draftRound":4, "nflTeam":"CHI"},
-        {"slot":"FLEX", "playerName":"Travis Etienne", "draftRound":3, "nflTeam":"JAX"},
-        {"slot":"FLEX", "playerName":"Brian Thomas Jr", "draftRound":6, "nflTeam":"JAX"},
-        {"slot":"FLEX", "playerName":"Kyle Monongai", "draftRound":8, "nflTeam":"CHI"}
+        {
+          "slot": "QB",
+          "playerName": "Caleb Williams (GAY)",
+          "draftRound": 7,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Christian McCaffrey",
+          "draftRound": 1,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "WR",
+          "playerName": "A.J. Brown",
+          "draftRound": 2,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Rome Odunze",
+          "draftRound": 5,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Colston Loveland",
+          "draftRound": 4,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Travis Etienne",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Brian Thomas Jr",
+          "draftRound": 6,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kyle Monangai",
+          "draftRound": 8,
+          "nflTeam": "CHI"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          18.3,
+          15.2,
+          10.4,
+          3.4,
+          7.0,
+          11.5,
+          6.9,
+          6.7
+        ],
+        "divisional": [
+          18.3,
+          15.2,
+          10.4,
+          3.4,
+          7.0,
+          11.5,
+          6.9,
+          6.7
+        ],
+        "championship": [
+          18.3,
+          15.2,
+          10.4,
+          3.4,
+          7.0,
+          11.5,
+          6.9,
+          6.7
+        ],
+        "superbowl": [
+          18.3,
+          15.2,
+          10.4,
+          3.4,
+          7.0,
+          11.5,
+          6.9,
+          6.7
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Patrick",
       "coach": "Tyler Shough",
       "roster": [
-        {"slot":"QB", "playerName":"Drake Maye", "draftRound":1, "nflTeam":"NE"},
-        {"slot":"RB", "playerName":"Kenneth Walker III", "draftRound":4, "nflTeam":"SEA"},
-        {"slot":"WR", "playerName":"Stefon Diggs", "draftRound":2, "nflTeam":"NE"},
-        {"slot":"WR", "playerName":"Cooper Kupp", "draftRound":6, "nflTeam":"SEA"},
-        {"slot":"TE", "playerName":"Dallas Goeddert", "draftRound":3, "nflTeam":"PHI"},
-        {"slot":"FLEX", "playerName":"Woody Marks", "draftRound":5, "nflTeam":"HOU"},
-        {"slot":"FLEX", "playerName":"Jaylin Noel", "draftRound":7, "nflTeam":"HOU"},
-        {"slot":"FLEX", "playerName":"DJ Moore", "draftRound":8, "nflTeam":"CHI"}
+        {
+          "slot": "QB",
+          "playerName": "Drake Maye",
+          "draftRound": 1,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Kenneth Walker III",
+          "draftRound": 4,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Stefon Diggs",
+          "draftRound": 2,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Cooper Kupp",
+          "draftRound": 6,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Dallas Goedert",
+          "draftRound": 3,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Woody Marks",
+          "draftRound": 5,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Jaylin Noel",
+          "draftRound": 7,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "DJ Moore",
+          "draftRound": 8,
+          "nflTeam": "CHI"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          20.1,
+          0,
+          8.1,
+          0,
+          5.6,
+          10.6,
+          0,
+          5.6
+        ],
+        "divisional": [
+          20.1,
+          0,
+          8.1,
+          0,
+          5.6,
+          10.6,
+          0,
+          5.6
+        ],
+        "championship": [
+          20.1,
+          0,
+          8.1,
+          0,
+          5.6,
+          10.6,
+          0,
+          5.6
+        ],
+        "superbowl": [
+          20.1,
+          0,
+          8.1,
+          0,
+          5.6,
+          10.6,
+          0,
+          5.6
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Dylan",
       "coach": "Treylon 'Burk Me' Burks",
       "roster": [
-        {"slot":"QB", "playerName":"Jordan Love", "draftRound":7, "nflTeam":"GB"},
-        {"slot":"RB", "playerName":"Saquon Barkley", "draftRound":1, "nflTeam":"PHI"},
-        {"slot":"WR", "playerName":"Devonta Smith", "draftRound":3, "nflTeam":"PHI"},
-        {"slot":"WR", "playerName":"Kayshon Boutte", "draftRound":4, "nflTeam":"NE"},
-        {"slot":"TE", "playerName":"Brenton Strange", "draftRound":6, "nflTeam":"JAX"},
-        {"slot":"FLEX", "playerName":"Kyren Williams", "draftRound":2, "nflTeam":"LAR"},
-        {"slot":"FLEX", "playerName":"Christian Watson", "draftRound":5, "nflTeam":"GB"},
-        {"slot":"FLEX", "playerName":"Tetairoa McMillan", "draftRound":8, "nflTeam":"CAR"}
+        {
+          "slot": "QB",
+          "playerName": "Jordan Love",
+          "draftRound": 7,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Saquon Barkley",
+          "draftRound": 1,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Devonta Smith",
+          "draftRound": 3,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Kayshon Boutte",
+          "draftRound": 4,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Brenton Strange",
+          "draftRound": 6,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kyren Williams",
+          "draftRound": 2,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Christian Watson",
+          "draftRound": 5,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Tetairoa McMillan",
+          "draftRound": 8,
+          "nflTeam": "CAR"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          16.4,
+          13.2,
+          7.6,
+          5.9,
+          6.4,
+          12.7,
+          8.9,
+          8.1
+        ],
+        "divisional": [
+          16.4,
+          13.2,
+          7.6,
+          5.9,
+          6.4,
+          12.7,
+          8.9,
+          8.1
+        ],
+        "championship": [
+          16.4,
+          13.2,
+          7.6,
+          5.9,
+          6.4,
+          12.7,
+          8.9,
+          8.1
+        ],
+        "superbowl": [
+          16.4,
+          13.2,
+          7.6,
+          5.9,
+          6.4,
+          12.7,
+          8.9,
+          8.1
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Colin Quality Learing Center",
       "coach": "Jacory Croskey-Merritt",
       "roster": [
-        {"slot":"QB", "playerName":"Matt Stafford", "draftRound":2, "nflTeam":"LAR"},
-        {"slot":"RB", "playerName":"Treyveon Henderson", "draftRound":3, "nflTeam":"NE"},
-        {"slot":"WR", "playerName":"Davante Adams", "draftRound":1, "nflTeam":"LAR"},
-        {"slot":"WR", "playerName":"DK Metcalf", "draftRound":6, "nflTeam":"PIT"},
-        {"slot":"TE", "playerName":"Hunter Henry", "draftRound":4, "nflTeam":"NE"},
-        {"slot":"FLEX", "playerName":"Dalton Shultz", "draftRound":5, "nflTeam":"HOU"},
-        {"slot":"FLEX", "playerName":"Kenneth Gainwell", "draftRound":7, "nflTeam":"PIT"},
-        {"slot":"FLEX", "playerName":"Romeo Doubs", "draftRound":8, "nflTeam":"GB"}
+        {
+          "slot": "QB",
+          "playerName": "Matthew Stafford",
+          "draftRound": 2,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Treveyon Henderson",
+          "draftRound": 3,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Davante Adams",
+          "draftRound": 1,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "WR",
+          "playerName": "DK Metcalf",
+          "draftRound": 6,
+          "nflTeam": "PIT"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Hunter Henry",
+          "draftRound": 4,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Dalton Schultz",
+          "draftRound": 5,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kenneth Gainwell",
+          "draftRound": 7,
+          "nflTeam": "PIT"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Romeo Doubs",
+          "draftRound": 8,
+          "nflTeam": "GB"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          19.2,
+          10.5,
+          9.5,
+          7.9,
+          7.5,
+          6.5,
+          8.6,
+          6.1
+        ],
+        "divisional": [
+          19.2,
+          10.5,
+          9.5,
+          7.9,
+          7.5,
+          6.5,
+          8.6,
+          6.1
+        ],
+        "championship": [
+          19.2,
+          10.5,
+          9.5,
+          7.9,
+          7.5,
+          6.5,
+          8.6,
+          6.1
+        ],
+        "superbowl": [
+          19.2,
+          10.5,
+          9.5,
+          7.9,
+          7.5,
+          6.5,
+          8.6,
+          6.1
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Ryan",
       "coach": "Defense",
       "roster": [
-        {"slot":"QB", "playerName":"Josh Allen", "draftRound":1, "nflTeam":"BUF"},
-        {"slot":"RB", "playerName":"Josh Jacobs", "draftRound":3, "nflTeam":"GB"},
-        {"slot":"WR", "playerName":"Nico Collins", "draftRound":2, "nflTeam":"HOU"},
-        {"slot":"WR", "playerName":"Jakobi Myers", "draftRound":5, "nflTeam":"JAX"},
-        {"slot":"TE", "playerName":"Cody Parkinson", "draftRound":6, "nflTeam":"LAR"},
-        {"slot":"FLEX", "playerName":"Omarion Hampton", "draftRound":4, "nflTeam":"LAC"},
-        {"slot":"FLEX", "playerName":"Rashid Shaheed", "draftRound":7, "nflTeam":"SEA"},
-        {"slot":"FLEX", "playerName":"Demario Douglas", "draftRound":8, "nflTeam":"NE"}
+        {
+          "slot": "QB",
+          "playerName": "Josh Allen",
+          "draftRound": 1,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Josh Jacobs",
+          "draftRound": 3,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Nico Collins",
+          "draftRound": 2,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jakobi Meyers",
+          "draftRound": 5,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Colby Parkinson",
+          "draftRound": 6,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Omarion Hampton",
+          "draftRound": 4,
+          "nflTeam": "LAC"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Rashid Shaheed",
+          "draftRound": 7,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Demario Douglas",
+          "draftRound": 8,
+          "nflTeam": "NE"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          22.5,
+          14.3,
+          8.9,
+          8.1,
+          3.9,
+          10.0,
+          0,
+          2.9
+        ],
+        "divisional": [
+          22.5,
+          14.3,
+          8.9,
+          8.1,
+          3.9,
+          10.0,
+          0,
+          2.9
+        ],
+        "championship": [
+          22.5,
+          14.3,
+          8.9,
+          8.1,
+          3.9,
+          10.0,
+          0,
+          2.9
+        ],
+        "superbowl": [
+          22.5,
+          14.3,
+          8.9,
+          8.1,
+          3.9,
+          10.0,
+          0,
+          2.9
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     },
     {
       "teamName": "Jason",
       "coach": "Kyle Pitts Sr",
       "roster": [
-        {"slot":"QB", "playerName":"Brock Purdy", "draftRound":7, "nflTeam":"SF"},
-        {"slot":"RB", "playerName":"James Cook", "draftRound":1, "nflTeam":"BUF"},
-        {"slot":"WR", "playerName":"Parker Washington", "draftRound":3, "nflTeam":"JAX"},
-        {"slot":"WR", "playerName":"Jauan Jennings", "draftRound":4, "nflTeam":"SF"},
-        {"slot":"TE", "playerName":"George Kittle", "draftRound":2, "nflTeam":"SF"},
-        {"slot":"FLEX", "playerName":"RJ Harvey", "draftRound":5, "nflTeam":"DEN"},
-        {"slot":"FLEX", "playerName":"Dalton Kincaid", "draftRound":6, "nflTeam":"BUF"},
-        {"slot":"FLEX", "playerName":"Blake Corum", "draftRound":8, "nflTeam":"LAR"}
+        {
+          "slot": "QB",
+          "playerName": "Brock Purdy",
+          "draftRound": 7,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "RB",
+          "playerName": "James Cook",
+          "draftRound": 1,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Parker Washington",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jauan Jennings",
+          "draftRound": 4,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "TE",
+          "playerName": "George Kittle",
+          "draftRound": 2,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "RJ Harvey",
+          "draftRound": 5,
+          "nflTeam": "DEN"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Dalton Kincaid",
+          "draftRound": 6,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Blake Corum",
+          "draftRound": 8,
+          "nflTeam": "LAR"
+        }
       ],
       "scores": {
-        "wildcard": [null, null, null, null, null, null, null, null],
-        "divisional": [null, null, null, null, null, null, null, null],
-        "championship": [null, null, null, null, null, null, null, null],
-        "superbowl": [null, null, null, null, null, null, null, null]
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "expectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       "projectedPoints": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          18.1,
+          15.9,
+          8.4,
+          7.9,
+          9.2,
+          0,
+          6.7,
+          7.0
+        ],
+        "divisional": [
+          18.1,
+          15.9,
+          8.4,
+          7.9,
+          9.2,
+          0,
+          6.7,
+          7.0
+        ],
+        "championship": [
+          18.1,
+          15.9,
+          8.4,
+          7.9,
+          9.2,
+          0,
+          6.7,
+          7.0
+        ],
+        "superbowl": [
+          18.1,
+          15.9,
+          8.4,
+          7.9,
+          9.2,
+          0,
+          6.7,
+          7.0
+        ]
       },
       "variance": {
-        "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
-        "divisional": [0, 0, 0, 0, 0, 0, 0, 0],
-        "championship": [0, 0, 0, 0, 0, 0, 0, 0],
-        "superbowl": [0, 0, 0, 0, 0, 0, 0, 0]
+        "wildcard": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "divisional": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "championship": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "superbowl": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       }
     }
   ]

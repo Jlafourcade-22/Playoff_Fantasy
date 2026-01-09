@@ -4,6 +4,54 @@ const API_KEY = process.env.SPORTSDATA_API_KEY || 'f0385433686543c48e1dd86818d4d
 const BASE_URL = 'api.sportsdata.io';
 
 /**
+ * Fetch player game projections for a specific week
+ * @param {string} season - Season and type (e.g., "2025POST")
+ * @param {number} week - Week number (Postseason: 1=Wildcard, 2=Divisional, 3=Championship, 4=Super Bowl)
+ * @returns {Promise<Array>} Array of player game projection stats
+ */
+function getPlayerGameProjectionsByWeek(season, week) {
+  return new Promise((resolve, reject) => {
+    const path = `/v3/nfl/projections/json/PlayerGameProjectionStatsByWeek/${season}/${week}?key=${API_KEY}`;
+    
+    const options = {
+      hostname: BASE_URL,
+      path: path,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      res.on('end', () => {
+        if (res.statusCode === 200) {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed);
+          } catch (error) {
+            reject(new Error('Failed to parse API response'));
+          }
+        } else {
+          reject(new Error(`API request failed with status ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.end();
+  });
+}
+
+/**
  * Fetch player game stats for a specific week
  * @param {string} season - Season and type (e.g., "2025POST")
  * @param {number} week - Week number (Postseason: 1=Wildcard, 2=Divisional, 3=Championship, 4=Super Bowl)
@@ -151,9 +199,58 @@ function roundToWeek(round) {
   return mapping[round.toLowerCase()] || 1;
 }
 
+/**
+ * Fetch player props (betting lines) for a specific game
+ * @param {number} scoreId - The ScoreID of the game
+ * @returns {Promise<Array>} Array of betting markets with player props
+ */
+function getPlayerPropsByScoreID(scoreId) {
+  return new Promise((resolve, reject) => {
+    const path = `/v3/nfl/odds/json/BettingPlayerPropsByScoreID/${scoreId}?key=${API_KEY}`;
+    
+    const options = {
+      hostname: BASE_URL,
+      path: path,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      res.on('end', () => {
+        if (res.statusCode === 200) {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed);
+          } catch (error) {
+            reject(new Error('Failed to parse API response'));
+          }
+        } else {
+          reject(new Error(`API request failed with status ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.end();
+  });
+}
+
 module.exports = {
   getPlayerGameStatsByWeek,
   getPlayerGameStatsByTeam,
+  getPlayerGameProjectionsByWeek,
+  getPlayerPropsByScoreID,
   findPlayerStats,
   getCurrentPlayoffInfo,
   roundToWeek

@@ -94,11 +94,39 @@ function updateTeamScores(teamName, round, scores) {
   return writeData(data);
 }
 
+// Update projected points for a team
+function updateTeamProjections(teamName, round, projections) {
+  const data = readData();
+  const teamIndex = data.teams.findIndex(team => team.teamName.toLowerCase() === teamName.toLowerCase());
+  
+  if (teamIndex === -1) {
+    throw new Error(`Team "${teamName}" not found`);
+  }
+
+  if (!['wildcard', 'divisional', 'championship', 'superbowl'].includes(round)) {
+    throw new Error(`Invalid round: ${round}`);
+  }
+
+  // Initialize projectedPoints if it doesn't exist
+  if (!data.teams[teamIndex].projectedPoints) {
+    data.teams[teamIndex].projectedPoints = {
+      wildcard: [0, 0, 0, 0, 0, 0, 0, 0],
+      divisional: [0, 0, 0, 0, 0, 0, 0, 0],
+      championship: [0, 0, 0, 0, 0, 0, 0, 0],
+      superbowl: [0, 0, 0, 0, 0, 0, 0, 0]
+    };
+  }
+
+  data.teams[teamIndex].projectedPoints[round] = projections;
+  return writeData(data);
+}
+
 module.exports = { 
   getAllTeams,
   getTeamByName,
   getFantasyData,
   updateTeamScores,
+  updateTeamProjections,
   readData,
   writeData
 };
