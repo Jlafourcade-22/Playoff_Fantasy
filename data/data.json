@@ -1,17 +1,30 @@
 {
+  "nflGames": {
+    "wildcard": [
+      { "homeTeam": "CAR", "awayTeam": "LAR", "gameTime": "2026-01-10T21:30:00Z" },
+      { "homeTeam": "CHI", "awayTeam": "GB", "gameTime": "2026-01-11T01:00:00Z" },
+      { "homeTeam": "JAX", "awayTeam": "BUF", "gameTime": "2026-01-11T18:00:00Z" },
+      { "homeTeam": "PHI", "awayTeam": "SF", "gameTime": "2026-01-11T21:30:00Z" },
+      { "homeTeam": "NE", "awayTeam": "LAC", "gameTime": "2026-01-12T01:00:00Z" },
+      { "homeTeam": "PIT", "awayTeam": "HOU", "gameTime": "2026-01-13T01:00:00Z" }
+    ],
+    "divisional": [],
+    "championship": [],
+    "superbowl": []
+  },
   "teams": [
     {
       "teamName": "Brady",
       "coach": "Top Coon",
       "roster": [
-        { "slot": "QB", "playerName": "Jalen Hurts", "draftRound": 2 },
-        { "slot": "RB", "playerName": "Deandre Swift", "draftRound": 5 },
-        { "slot": "WR", "playerName": "Puca Nacua", "draftRound": 1 },
-        { "slot": "WR", "playerName": "Courtland Sutton", "draftRound": 3 },
-        { "slot": "TE", "playerName": "AJ Barner", "draftRound": 7 },
-        { "slot": "FLEX", "playerName": "Jayden Higgins", "draftRound": 4 },
-        { "slot": "FLEX", "playerName": "Zach Charbonnet", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Quentin Johnson", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Jalen Hurts", "draftRound": 2, "nflTeam": "PHI" },
+        { "slot": "RB", "playerName": "Deandre Swift", "draftRound": 5, "nflTeam": "CHI" },
+        { "slot": "WR", "playerName": "Puca Nacua", "draftRound": 1, "nflTeam": "LAR" },
+        { "slot": "WR", "playerName": "Courtland Sutton", "draftRound": 3, "nflTeam": "DEN" },
+        { "slot": "TE", "playerName": "AJ Barner", "draftRound": 7, "nflTeam": "SEA" },
+        { "slot": "FLEX", "playerName": "Jayden Higgins", "draftRound": 4, "nflTeam": "HOU" },
+        { "slot": "FLEX", "playerName": "Zach Charbonnet", "draftRound": 6, "nflTeam": "SEA" },
+        { "slot": "FLEX", "playerName": "Quentin Johnson", "draftRound": 8, "nflTeam": "LAC" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,14 +37,14 @@
       "teamName": "Robbie",
       "coach": "Emeka Egbuka",
       "roster": [
-        { "slot": "QB", "playerName": "Trevor Lawrence", "draftRound": 3 },
-        { "slot": "RB", "playerName": "Rhamondre Stevenson", "draftRound": 2 },
-        { "slot": "WR", "playerName": "Jaxon Smith-Njigba", "draftRound": 1 },
-        { "slot": "WR", "playerName": "Luther Burden II", "draftRound": 4 },
-        { "slot": "TE", "playerName": "Tyler Higbee", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Khalil Shakir", "draftRound": 5 },
-        { "slot": "FLEX", "playerName": "Rico Dowdle", "draftRound": 7 },
-        { "slot": "FLEX", "playerName": "Jayden Reed", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Trevor Lawrence", "draftRound": 3, "nflTeam": "JAX" },
+        { "slot": "RB", "playerName": "Rhamondre Stevenson", "draftRound": 2, "nflTeam": "NE" },
+        { "slot": "WR", "playerName": "Jaxon Smith-Njigba", "draftRound": 1, "nflTeam": "SEA" },
+        { "slot": "WR", "playerName": "Luther Burden II", "draftRound": 4, "nflTeam": "CHI" },
+        { "slot": "TE", "playerName": "Tyler Higbee", "draftRound": 6, "nflTeam": "LAR" },
+        { "slot": "FLEX", "playerName": "Khalil Shakir", "draftRound": 5, "nflTeam": "BUF" },
+        { "slot": "FLEX", "playerName": "Rico Dowdle", "draftRound": 7, "nflTeam": "CAR" },
+        { "slot": "FLEX", "playerName": "Jayden Reed", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -44,14 +57,14 @@
       "teamName": "Cody",
       "coach": "Jonathon Mingo",
       "roster": [
-        { "slot": "QB", "playerName": "Caleb Williams (GAY)", "draftRound": 7 },
-        { "slot": "RB", "playerName": "Christian McCaffery", "draftRound": 1 },
-        { "slot": "WR", "playerName": "AJ Brown", "draftRound": 2 },
-        { "slot": "WR", "playerName": "Rome Odunze II", "draftRound": 5 },
-        { "slot": "TE", "playerName": "Colston Loveland", "draftRound": 4 },
-        { "slot": "FLEX", "playerName": "Travis Etienne", "draftRound": 3 },
-        { "slot": "FLEX", "playerName": "Brian Thomas Jr", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Kyle Monongai", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Caleb Williams (GAY)", "draftRound": 7, "nflTeam": "CHI" },
+        { "slot": "RB", "playerName": "Christian McCaffery", "draftRound": 1, "nflTeam": "SF" },
+        { "slot": "WR", "playerName": "AJ Brown", "draftRound": 2, "nflTeam": "PHI" },
+        { "slot": "WR", "playerName": "Rome Odunze II", "draftRound": 5, "nflTeam": "CHI" },
+        { "slot": "TE", "playerName": "Colston Loveland", "draftRound": 4, "nflTeam": "CHI" },
+        { "slot": "FLEX", "playerName": "Travis Etienne", "draftRound": 3, "nflTeam": "JAX" },
+        { "slot": "FLEX", "playerName": "Brian Thomas Jr", "draftRound": 6, "nflTeam": "JAX" },
+        { "slot": "FLEX", "playerName": "Kyle Monongai", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -64,14 +77,14 @@
       "teamName": "Patrick",
       "coach": "Tyler Shough",
       "roster": [
-        { "slot": "QB", "playerName": "Drake Maye", "draftRound": 1 },
-        { "slot": "RB", "playerName": "Kenneth Walker III", "draftRound": 4 },
-        { "slot": "WR", "playerName": "Stefon Diggs", "draftRound": 2 },
-        { "slot": "WR", "playerName": "Cooper Kupp", "draftRound": 6 },
-        { "slot": "TE", "playerName": "Dallas Goeddert", "draftRound": 3 },
-        { "slot": "FLEX", "playerName": "Woody Marks", "draftRound": 5 },
-        { "slot": "FLEX", "playerName": "Jaylin Noel", "draftRound": 7 },
-        { "slot": "FLEX", "playerName": "DJ Moore", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Drake Maye", "draftRound": 1, "nflTeam": "NE" },
+        { "slot": "RB", "playerName": "Kenneth Walker III", "draftRound": 4, "nflTeam": "SEA" },
+        { "slot": "WR", "playerName": "Stefon Diggs", "draftRound": 2, "nflTeam": "NE" },
+        { "slot": "WR", "playerName": "Cooper Kupp", "draftRound": 6, "nflTeam": "SEA" },
+        { "slot": "TE", "playerName": "Dallas Goeddert", "draftRound": 3, "nflTeam": "PHI" },
+        { "slot": "FLEX", "playerName": "Woody Marks", "draftRound": 5, "nflTeam": "HOU" },
+        { "slot": "FLEX", "playerName": "Jaylin Noel", "draftRound": 7, "nflTeam": "HOU" },
+        { "slot": "FLEX", "playerName": "DJ Moore", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -84,14 +97,14 @@
       "teamName": "Dylan",
       "coach": "Treylon 'Burk Me' Burks",
       "roster": [
-        { "slot": "QB", "playerName": "Jordan Love", "draftRound": 7 },
-        { "slot": "RB", "playerName": "Saquon Barkley", "draftRound": 1 },
-        { "slot": "WR", "playerName": "Devonta Smith", "draftRound": 3 },
-        { "slot": "WR", "playerName": "Kayshon Boutte", "draftRound": 4 },
-        { "slot": "TE", "playerName": "Brenton Strange", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Kyren Williams", "draftRound": 2 },
-        { "slot": "FLEX", "playerName": "Christian Watson", "draftRound": 5 },
-        { "slot": "FLEX", "playerName": "Tetairoa McMillan", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Jordan Love", "draftRound": 7, "nflTeam": "GB" },
+        { "slot": "RB", "playerName": "Saquon Barkley", "draftRound": 1, "nflTeam": "PHI" },
+        { "slot": "WR", "playerName": "Devonta Smith", "draftRound": 3, "nflTeam": "PHI" },
+        { "slot": "WR", "playerName": "Kayshon Boutte", "draftRound": 4, "nflTeam": "NE" },
+        { "slot": "TE", "playerName": "Brenton Strange", "draftRound": 6, "nflTeam": "JAX" },
+        { "slot": "FLEX", "playerName": "Kyren Williams", "draftRound": 2, "nflTeam": "LAR" },
+        { "slot": "FLEX", "playerName": "Christian Watson", "draftRound": 5, "nflTeam": "GB" },
+        { "slot": "FLEX", "playerName": "Tetairoa McMillan", "draftRound": 8, "nflTeam": "CAR" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -104,14 +117,14 @@
       "teamName": "Colin",
       "coach": "Jacory Croskey-Merritt",
       "roster": [
-        { "slot": "QB", "playerName": "Matt Stafford", "draftRound": 2 },
-        { "slot": "RB", "playerName": "Treyveon Henderson", "draftRound": 3 },
-        { "slot": "WR", "playerName": "Davante Adams", "draftRound": 1 },
-        { "slot": "WR", "playerName": "DK Metcalf", "draftRound": 6 },
-        { "slot": "TE", "playerName": "Hunter Henry", "draftRound": 4 },
-        { "slot": "FLEX", "playerName": "Dalton Shultz", "draftRound": 5 },
-        { "slot": "FLEX", "playerName": "Kenneth Gainwell", "draftRound": 7 },
-        { "slot": "FLEX", "playerName": "Romeo Doubs", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Matt Stafford", "draftRound": 2, "nflTeam": "LAR" },
+        { "slot": "RB", "playerName": "Treyveon Henderson", "draftRound": 3, "nflTeam": "NE" },
+        { "slot": "WR", "playerName": "Davante Adams", "draftRound": 1, "nflTeam": "LAR" },
+        { "slot": "WR", "playerName": "DK Metcalf", "draftRound": 6, "nflTeam": "PIT" },
+        { "slot": "TE", "playerName": "Hunter Henry", "draftRound": 4, "nflTeam": "NE" },
+        { "slot": "FLEX", "playerName": "Dalton Shultz", "draftRound": 5, "nflTeam": "HOU" },
+        { "slot": "FLEX", "playerName": "Kenneth Gainwell", "draftRound": 7, "nflTeam": "PIT" },
+        { "slot": "FLEX", "playerName": "Romeo Doubs", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -124,14 +137,14 @@
       "teamName": "Ryan",
       "coach": "Defense",
       "roster": [
-        { "slot": "QB", "playerName": "Josh Allen", "draftRound": 1 },
-        { "slot": "RB", "playerName": "Josh Jacobs", "draftRound": 3 },
-        { "slot": "WR", "playerName": "Nico Collins", "draftRound": 2 },
-        { "slot": "WR", "playerName": "Jakobi Myers", "draftRound": 5 },
-        { "slot": "TE", "playerName": "Cody Parkinson", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Omarion Hampton", "draftRound": 4 },
-        { "slot": "FLEX", "playerName": "Rasheed Shaheed", "draftRound": 7 },
-        { "slot": "FLEX", "playerName": "Demario Douglas", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Josh Allen", "draftRound": 1, "nflTeam": "BUF" },
+        { "slot": "RB", "playerName": "Josh Jacobs", "draftRound": 3, "nflTeam": "GB" },
+        { "slot": "WR", "playerName": "Nico Collins", "draftRound": 2, "nflTeam": "HOU" },
+        { "slot": "WR", "playerName": "Jakobi Myers", "draftRound": 5, "nflTeam": "JAX" },
+        { "slot": "TE", "playerName": "Cody Parkinson", "draftRound": 6, "nflTeam": "LAR" },
+        { "slot": "FLEX", "playerName": "Omarion Hampton", "draftRound": 4, "nflTeam": "LAC" },
+        { "slot": "FLEX", "playerName": "Rasheed Shaheed", "draftRound": 7, "nflTeam": "SEA" },
+        { "slot": "FLEX", "playerName": "Demario Douglas", "draftRound": 8, "nflTeam": "NE" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -144,14 +157,14 @@
       "teamName": "Jason",
       "coach": "Kyle Pitts Sr",
       "roster": [
-        { "slot": "QB", "playerName": "Brock Purdy", "draftRound": 7 },
-        { "slot": "RB", "playerName": "James Cook", "draftRound": 1 },
-        { "slot": "WR", "playerName": "Parker Washington", "draftRound": 3 },
-        { "slot": "WR", "playerName": "Jauan Jennings", "draftRound": 4 },
-        { "slot": "TE", "playerName": "George Kittle", "draftRound": 2 },
-        { "slot": "FLEX", "playerName": "RJ Harvey", "draftRound": 5 },
-        { "slot": "FLEX", "playerName": "Dalton Kincaid", "draftRound": 6 },
-        { "slot": "FLEX", "playerName": "Blake Corum", "draftRound": 8 }
+        { "slot": "QB", "playerName": "Brock Purdy", "draftRound": 7, "nflTeam": "SF" },
+        { "slot": "RB", "playerName": "James Cook", "draftRound": 1, "nflTeam": "BUF" },
+        { "slot": "WR", "playerName": "Parker Washington", "draftRound": 3, "nflTeam": "JAX" },
+        { "slot": "WR", "playerName": "Jauan Jennings", "draftRound": 4, "nflTeam": "SF" },
+        { "slot": "TE", "playerName": "George Kittle", "draftRound": 2, "nflTeam": "SF" },
+        { "slot": "FLEX", "playerName": "RJ Harvey", "draftRound": 5, "nflTeam": "DEN" },
+        { "slot": "FLEX", "playerName": "Dalton Kincaid", "draftRound": 6, "nflTeam": "BUF" },
+        { "slot": "FLEX", "playerName": "Blake Corum", "draftRound": 8, "nflTeam": "LAR" }
       ],
       "scores": {
         "wildcard": [0, 0, 0, 0, 0, 0, 0, 0],

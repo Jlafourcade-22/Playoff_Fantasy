@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores } = require('./data/mockDb');
+const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, readData } = require('./data/mockDb');
+const { getPlayerGameStatsByWeek, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
+const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
+const { calculateFantasyPoints } = require('./utils/fantasyPoints');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -74,6 +77,101 @@ app.put('/api/fantasy-data/:teamName/scores', (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+// Update scores from live API data
+app.post('/api/update-scores/:round', async (req, res) => {
+  try {
+    const round = req.params.round.toLowerCase();
+    
+    // Validate round
+    if (!['wildcard', 'divisional', 'championship', 'superbowl'].includes(round)) {
+      return res.status(400).json({ error: 'Invalid round. Must be: wildcard, divisional, championship, or superbowl' });
+    }
+
+    // Read data to get games and teams
+    const data = readData();
+    const games = data.nflGames[round];
+    
+    if (!games || games.length === 0) {
+      return res.status(400).json({ error: `No games scheduled for ${round} round` });
+    }
+
+    // Get teams playing in active games
+    const activeTeams = getActiveTeams(games);
+    
+    if (activeTeams.length === 0) {
+      return res.json({ 
+        message: 'No games currently active',
+        activeGames: 0,
+        teamsUpdated: 0
+      });
+    }
+
+    // Fetch stats from SportsData.io API
+    const week = roundToWeek(round);
+    const allPlayerStats = await getPlayerGameStatsByWeek('2025POST', week);
+    
+    let updatedCount = 0;
+    const updateResults = [];
+
+    // Loop through all teams and update scores for players in active games
+    for (const team of data.teams) {
+      const updatedScores = [...team.scores[round]]; // Clone current scores
+      
+      team.roster.forEach((player, index) => {
+        const playerTeam = player.nflTeam;
+        
+        // Only fetch live stats for players whose teams are currently playing
+        if (shouldFetchLiveStats(playerTeam, games)) {
+          const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
+          
+          if (playerStats) {
+            const fantasyPoints = calculateFantasyPoints(playerStats);
+            updatedScores[index] = fantasyPoints;
+            updatedCount++;
+            
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              previousScore: team.scores[round][index],
+              newScore: fantasyPoints,
+              updated: true
+            });
+          } else {
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              previousScore: team.scores[round][index],
+              newScore: team.scores[round][index],
+              updated: false,
+              reason: 'Player stats not found in API'
+            });
+          }
+        }
+      });
+      
+      // Update the team's scores if any changed
+      if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
+        updateTeamScores(team.teamName, round, updatedScores);
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `Updated scores for ${round} round`,
+      activeGames: activeTeams.length / 2,
+      playersUpdated: updatedCount,
+      details: updateResults
+    });
+
+  } catch (error) {
+    console.error('Error updating scores:', error);
+    res.status(500).json({ 
+      error: 'Failed to update scores',
+      message: error.message 
+    });
   }
 });
 
