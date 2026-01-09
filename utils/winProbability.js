@@ -1,7 +1,6 @@
 // Monte Carlo simulation for rotisserie fantasy league win probabilities
 
 const SIMULATIONS = 10000;
-const PLAYER_STD_DEV = 8; // Standard deviation for all players
 
 /**
  * Generate a random value from normal distribution using Box-Muller transform
@@ -15,23 +14,24 @@ function randomNormal(mean, stdDev) {
 
 /**
  * Simulate one complete playoff season for all teams
+ * Uses individual player variances from team.variance arrays
  */
 function simulateOneSeason(teams) {
   return teams.map(team => {
     // Sum all player scores for this team
     let totalScore = 0;
     
-    team.expectedPoints.wildcard.forEach(expectedPts => {
-      totalScore += randomNormal(expectedPts, PLAYER_STD_DEV);
-    });
-    team.expectedPoints.divisional.forEach(expectedPts => {
-      totalScore += randomNormal(expectedPts, PLAYER_STD_DEV);
-    });
-    team.expectedPoints.championship.forEach(expectedPts => {
-      totalScore += randomNormal(expectedPts, PLAYER_STD_DEV);
-    });
-    team.expectedPoints.superbowl.forEach(expectedPts => {
-      totalScore += randomNormal(expectedPts, PLAYER_STD_DEV);
+    const rounds = ['wildcard', 'divisional', 'championship', 'superbowl'];
+    
+    rounds.forEach(round => {
+      team.expectedPoints[round].forEach((expectedPts, idx) => {
+        // Get player's variance for this round
+        const variance = team.variance[round][idx];
+        const stdDev = Math.sqrt(variance);
+        
+        // Generate random score with player-specific standard deviation
+        totalScore += randomNormal(expectedPts, stdDev);
+      });
     });
     
     return {

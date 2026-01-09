@@ -1,0 +1,2046 @@
+{
+  "nflGames": {
+    "wildcard": [
+      {
+        "homeTeam": "CAR",
+        "awayTeam": "LAR",
+        "gameTime": "2026-01-10T21:30:00Z"
+      },
+      {
+        "homeTeam": "CHI",
+        "awayTeam": "GB",
+        "gameTime": "2026-01-11T01:00:00Z"
+      },
+      {
+        "homeTeam": "JAX",
+        "awayTeam": "BUF",
+        "gameTime": "2026-01-11T18:00:00Z"
+      },
+      {
+        "homeTeam": "PHI",
+        "awayTeam": "SF",
+        "gameTime": "2026-01-11T21:30:00Z"
+      },
+      {
+        "homeTeam": "NE",
+        "awayTeam": "LAC",
+        "gameTime": "2026-01-12T01:00:00Z"
+      },
+      {
+        "homeTeam": "PIT",
+        "awayTeam": "HOU",
+        "gameTime": "2026-01-13T01:00:00Z"
+      }
+    ],
+    "divisional": [],
+    "championship": [],
+    "superbowl": []
+  },
+  "eliminatedTeams": [],
+  "teamProbabilities": {
+    "PHI": [
+      1,
+      0.705,
+      0.267,
+      0.093
+    ],
+    "BUF": [
+      1,
+      0.519,
+      0.145,
+      0.055
+    ],
+    "LAR": [
+      1,
+      0.861,
+      0.443,
+      0.024
+    ],
+    "CHI": [
+      1,
+      0.485,
+      0.307,
+      0.098
+    ],
+    "GB": [
+      1,
+      0.553,
+      0.103,
+      0.032
+    ],
+    "JAX": [
+      1,
+      0.519,
+      0.293,
+      0.164
+    ],
+    "SF": [
+      1,
+      0.335,
+      0.124,
+      0.044
+    ],
+    "NE": [
+      1,
+      0.664,
+      0.47,
+      0.27
+    ],
+    "LAC": [
+      1,
+      0.375,
+      0.081,
+      0.024
+    ],
+    "PIT": [
+      1,
+      0.423,
+      0.18,
+      0.065
+    ],
+    "HOU": [
+      1,
+      0.618,
+      0.227,
+      0.107
+    ],
+    "CAR": [
+      1,
+      0.178,
+      0.051,
+      0.011
+    ],
+    "SEA": [
+      0,
+      1,
+      0.706,
+      0.483
+    ],
+    "DEN": [
+      0,
+      1,
+      0.604,
+      0.315
+    ]
+  },
+  "teams": [
+    {
+      "teamName": "Brady",
+      "coach": "Top Coon",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Jalen Hurts",
+          "draftRound": 2,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "RB",
+          "playerName": "D'andre Swift",
+          "draftRound": 5,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Puka Nacua",
+          "draftRound": 1,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Courtland Sutton",
+          "draftRound": 3,
+          "nflTeam": "DEN"
+        },
+        {
+          "slot": "TE",
+          "playerName": "AJ Barner",
+          "draftRound": 7,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Jayden Higgins",
+          "draftRound": 4,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Zach Charbonnet",
+          "draftRound": 6,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Quentin Johnston",
+          "draftRound": 8,
+          "nflTeam": "LAC"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          19.5,
+          12.4,
+          21.1,
+          0,
+          0,
+          7.3,
+          0,
+          11.2
+        ],
+        "divisional": [
+          13.7,
+          6,
+          18.2,
+          12.9,
+          8.7,
+          4.5,
+          11.3,
+          4.2
+        ],
+        "championship": [
+          5.2,
+          3.8,
+          9.3,
+          7.8,
+          6.1,
+          1.7,
+          8,
+          0.9
+        ],
+        "superbowl": [
+          1.8,
+          1.2,
+          0.5,
+          4.1,
+          4.2,
+          0.8,
+          5.5,
+          0.3
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          19.5,
+          12.4,
+          21.1,
+          12.9,
+          8.7,
+          7.3,
+          11.3,
+          11.2
+        ],
+        "divisional": [
+          19.5,
+          12.4,
+          21.1,
+          12.9,
+          8.7,
+          7.3,
+          11.3,
+          11.2
+        ],
+        "championship": [
+          19.5,
+          12.4,
+          21.1,
+          12.9,
+          8.7,
+          7.3,
+          11.3,
+          11.2
+        ],
+        "superbowl": [
+          19.5,
+          12.4,
+          21.1,
+          12.9,
+          8.7,
+          7.3,
+          11.3,
+          11.2
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          121,
+          0,
+          0,
+          121,
+          0,
+          174.2
+        ],
+        "divisional": [
+          100.4,
+          73.4,
+          157.5,
+          98,
+          51.8,
+          87.4,
+          121,
+          94.7
+        ],
+        "championship": [
+          82.5,
+          54.9,
+          163.5,
+          99,
+          52.3,
+          36.8,
+          111.9,
+          23.5
+        ],
+        "superbowl": [
+          34.9,
+          20.7,
+          13.3,
+          66.8,
+          43.9,
+          18,
+          90.3,
+          7.1
+        ]
+      }
+    },
+    {
+      "teamName": "Robbie",
+      "coach": "Emeka Egbuka",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Trevor Lawrence",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Rhamondre Stevenson",
+          "draftRound": 2,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jaxon Smith-Njigba",
+          "draftRound": 1,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Luther Burden II",
+          "draftRound": 4,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Tyler Higbee",
+          "draftRound": 6,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Khalil Shakir",
+          "draftRound": 5,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Rico Dowdle",
+          "draftRound": 7,
+          "nflTeam": "CAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Jayden Reed",
+          "draftRound": 8,
+          "nflTeam": "GB"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          20.7,
+          12.8,
+          0,
+          11.2,
+          7.6,
+          12,
+          12.2,
+          11.2
+        ],
+        "divisional": [
+          10.7,
+          8.5,
+          21.2,
+          5.4,
+          6.5,
+          6.2,
+          2.2,
+          6.2
+        ],
+        "championship": [
+          6.1,
+          6,
+          15,
+          3.4,
+          3.4,
+          1.7,
+          0.6,
+          1.2
+        ],
+        "superbowl": [
+          3.4,
+          3.5,
+          10.2,
+          1.1,
+          0.2,
+          0.7,
+          0.1,
+          0.4
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          20.7,
+          12.8,
+          21.2,
+          11.2,
+          7.6,
+          12,
+          12.2,
+          11.2
+        ],
+        "divisional": [
+          20.7,
+          12.8,
+          21.2,
+          11.2,
+          7.6,
+          12,
+          12.2,
+          11.2
+        ],
+        "championship": [
+          20.7,
+          12.8,
+          21.2,
+          11.2,
+          7.6,
+          12,
+          12.2,
+          11.2
+        ],
+        "superbowl": [
+          20.7,
+          12.8,
+          21.2,
+          11.2,
+          7.6,
+          12,
+          12.2,
+          11.2
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          0,
+          174.2,
+          36,
+          121,
+          146.4,
+          121
+        ],
+        "divisional": [
+          122.7,
+          84.5,
+          121,
+          115.8,
+          37.9,
+          98.7,
+          47.8,
+          97.9
+        ],
+        "championship": [
+          97.6,
+          74.8,
+          178.7,
+          80.2,
+          30.2,
+          35.4,
+          14.7,
+          24.1
+        ],
+        "superbowl": [
+          63.7,
+          51.8,
+          170.7,
+          28.2,
+          2.2,
+          14.1,
+          3.2,
+          7.8
+        ]
+      }
+    },
+    {
+      "teamName": "Cody",
+      "coach": "Jonathon Mingo",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Caleb Williams (GAY)",
+          "draftRound": 7,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Christian McCaffrey",
+          "draftRound": 1,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "WR",
+          "playerName": "A.J. Brown",
+          "draftRound": 2,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Rome Odunze",
+          "draftRound": 5,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Colston Loveland",
+          "draftRound": 4,
+          "nflTeam": "CHI"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Travis Etienne",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Brian Thomas Jr",
+          "draftRound": 6,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kyle Monangai",
+          "draftRound": 8,
+          "nflTeam": "CHI"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          18.3,
+          20.3,
+          16.1,
+          5.4,
+          11.3,
+          13.6,
+          10.6,
+          7.8
+        ],
+        "divisional": [
+          8.9,
+          6.8,
+          11.4,
+          2.6,
+          5.5,
+          7.1,
+          5.5,
+          3.8
+        ],
+        "championship": [
+          5.6,
+          2.5,
+          4.3,
+          1.7,
+          3.5,
+          4,
+          3.1,
+          2.4
+        ],
+        "superbowl": [
+          1.8,
+          0.9,
+          1.5,
+          0.5,
+          1.1,
+          2.2,
+          1.7,
+          0.8
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          18.3,
+          20.3,
+          16.1,
+          5.4,
+          11.3,
+          13.6,
+          10.6,
+          7.8
+        ],
+        "divisional": [
+          18.3,
+          20.3,
+          16.1,
+          5.4,
+          11.3,
+          13.6,
+          10.6,
+          7.8
+        ],
+        "championship": [
+          18.3,
+          20.3,
+          16.1,
+          5.4,
+          11.3,
+          13.6,
+          10.6,
+          7.8
+        ],
+        "superbowl": [
+          18.3,
+          20.3,
+          16.1,
+          5.4,
+          11.3,
+          13.6,
+          10.6,
+          7.8
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          68.1,
+          72.3,
+          121,
+          204.5,
+          36,
+          121,
+          121,
+          237.2
+        ],
+        "divisional": [
+          116.7,
+          116,
+          139.2,
+          106.5,
+          49.4,
+          109,
+          90.8,
+          130.2
+        ],
+        "championship": [
+          92.1,
+          53.7,
+          83,
+          69,
+          38.2,
+          73.8,
+          58.7,
+          85.8
+        ],
+        "superbowl": [
+          36.3,
+          20.5,
+          33.1,
+          22.6,
+          14.8,
+          45.2,
+          35.2,
+          28.6
+        ]
+      }
+    },
+    {
+      "teamName": "Patrick",
+      "coach": "Tyler Shough",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Drake Maye",
+          "draftRound": 1,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Kenneth Walker III",
+          "draftRound": 4,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Stefon Diggs",
+          "draftRound": 2,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Cooper Kupp",
+          "draftRound": 6,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Dallas Goedert",
+          "draftRound": 3,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Woody Marks",
+          "draftRound": 5,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Jaylin Noel",
+          "draftRound": 7,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "DJ Moore",
+          "draftRound": 8,
+          "nflTeam": "CHI"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          20.1,
+          0,
+          13.2,
+          0,
+          9.7,
+          12.2,
+          2.5,
+          8.7
+        ],
+        "divisional": [
+          13.3,
+          11.3,
+          8.8,
+          7.3,
+          6.8,
+          7.5,
+          1.5,
+          4.2
+        ],
+        "championship": [
+          9.4,
+          8,
+          6.2,
+          5.2,
+          2.6,
+          2.8,
+          0.6,
+          2.7
+        ],
+        "superbowl": [
+          5.4,
+          5.5,
+          3.6,
+          3.5,
+          0.9,
+          1.3,
+          0.3,
+          0.9
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          20.1,
+          11.3,
+          13.2,
+          7.3,
+          9.7,
+          12.2,
+          2.5,
+          8.7
+        ],
+        "divisional": [
+          20.1,
+          11.3,
+          13.2,
+          7.3,
+          9.7,
+          12.2,
+          2.5,
+          8.7
+        ],
+        "championship": [
+          20.1,
+          11.3,
+          13.2,
+          7.3,
+          9.7,
+          12.2,
+          2.5,
+          8.7
+        ],
+        "superbowl": [
+          20.1,
+          11.3,
+          13.2,
+          7.3,
+          9.7,
+          12.2,
+          2.5,
+          8.7
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          0,
+          121,
+          0,
+          36,
+          121,
+          204.5,
+          121
+        ],
+        "divisional": [
+          110.2,
+          72.3,
+          119.2,
+          87.4,
+          44.9,
+          109.9,
+          127.9,
+          77.6
+        ],
+        "championship": [
+          114.9,
+          77.5,
+          100.3,
+          72.8,
+          28,
+          53.6,
+          47.5,
+          53.3
+        ],
+        "superbowl": [
+          87.8,
+          66.8,
+          67,
+          55.5,
+          11.3,
+          27.2,
+          22.5,
+          18.5
+        ]
+      }
+    },
+    {
+      "teamName": "Dylan",
+      "coach": "Treylon 'Burk Me' Burks",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Jordan Love",
+          "draftRound": 7,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Saquon Barkley",
+          "draftRound": 1,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Devonta Smith",
+          "draftRound": 3,
+          "nflTeam": "PHI"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Kayshon Boutte",
+          "draftRound": 4,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Brenton Strange",
+          "draftRound": 6,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kyren Williams",
+          "draftRound": 2,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Christian Watson",
+          "draftRound": 5,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Tetairoa McMillan",
+          "draftRound": 8,
+          "nflTeam": "CAR"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          16.4,
+          15.4,
+          12.2,
+          8.9,
+          10.8,
+          14.7,
+          12.6,
+          12.5
+        ],
+        "divisional": [
+          9.1,
+          10.9,
+          8.6,
+          5.9,
+          5.6,
+          12.7,
+          7,
+          2.2
+        ],
+        "championship": [
+          1.7,
+          4.1,
+          3.3,
+          4.2,
+          3.2,
+          6.5,
+          1.3,
+          0.6
+        ],
+        "superbowl": [
+          0.5,
+          1.4,
+          1.1,
+          2.4,
+          1.8,
+          0.4,
+          0.4,
+          0.1
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          16.4,
+          15.4,
+          12.2,
+          8.9,
+          10.8,
+          14.7,
+          12.6,
+          12.5
+        ],
+        "divisional": [
+          16.4,
+          15.4,
+          12.2,
+          8.9,
+          10.8,
+          14.7,
+          12.6,
+          12.5
+        ],
+        "championship": [
+          16.4,
+          15.4,
+          12.2,
+          8.9,
+          10.8,
+          14.7,
+          12.6,
+          12.5
+        ],
+        "superbowl": [
+          16.4,
+          15.4,
+          12.2,
+          8.9,
+          10.8,
+          14.7,
+          12.6,
+          12.5
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          121,
+          121,
+          36,
+          121,
+          146.4,
+          204.5
+        ],
+        "divisional": [
+          83.2,
+          100.3,
+          116.3,
+          98,
+          47.8,
+          130,
+          120.2,
+          59.3
+        ],
+        "championship": [
+          28,
+          65.7,
+          61.4,
+          76.6,
+          34.7,
+          106.9,
+          29.7,
+          18
+        ],
+        "superbowl": [
+          9.3,
+          26.7,
+          23.8,
+          48.3,
+          21.9,
+          8,
+          9.6,
+          3.9
+        ]
+      }
+    },
+    {
+      "teamName": "Colin Quality Learing Center",
+      "coach": "Jacory Croskey-Merritt",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Matthew Stafford",
+          "draftRound": 2,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Treveyon Henderson",
+          "draftRound": 3,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Davante Adams",
+          "draftRound": 1,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "WR",
+          "playerName": "DK Metcalf",
+          "draftRound": 6,
+          "nflTeam": "PIT"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Hunter Henry",
+          "draftRound": 4,
+          "nflTeam": "NE"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Dalton Schultz",
+          "draftRound": 5,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Kenneth Gainwell",
+          "draftRound": 7,
+          "nflTeam": "PIT"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Romeo Doubs",
+          "draftRound": 8,
+          "nflTeam": "GB"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          19.2,
+          12.4,
+          13.5,
+          12.2,
+          12.1,
+          11.1,
+          13.7,
+          9.4
+        ],
+        "divisional": [
+          16.5,
+          8.2,
+          11.6,
+          5.2,
+          8,
+          6.9,
+          5.8,
+          5.2
+        ],
+        "championship": [
+          8.5,
+          5.8,
+          6,
+          2.2,
+          5.7,
+          2.5,
+          2.5,
+          1
+        ],
+        "superbowl": [
+          0.5,
+          3.3,
+          0.3,
+          0.8,
+          3.3,
+          1.2,
+          0.9,
+          0.3
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          19.2,
+          12.4,
+          13.5,
+          12.2,
+          12.1,
+          11.1,
+          13.7,
+          9.4
+        ],
+        "divisional": [
+          19.2,
+          12.4,
+          13.5,
+          12.2,
+          12.1,
+          11.1,
+          13.7,
+          9.4
+        ],
+        "championship": [
+          19.2,
+          12.4,
+          13.5,
+          12.2,
+          12.1,
+          11.1,
+          13.7,
+          9.4
+        ],
+        "superbowl": [
+          19.2,
+          12.4,
+          13.5,
+          12.2,
+          12.1,
+          11.1,
+          13.7,
+          9.4
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          121,
+          121,
+          36,
+          121,
+          121,
+          121
+        ],
+        "divisional": [
+          70.2,
+          82.3,
+          126,
+          87.5,
+          56.6,
+          103.9,
+          97,
+          88.8
+        ],
+        "championship": [
+          104.4,
+          72.3,
+          98.6,
+          43.7,
+          53.4,
+          49.1,
+          49.5,
+          20.6
+        ],
+        "superbowl": [
+          9.4,
+          49.8,
+          7.2,
+          16.9,
+          38.6,
+          24.7,
+          19.3,
+          6.6
+        ]
+      }
+    },
+    {
+      "teamName": "Ryan",
+      "coach": "Defense",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Josh Allen",
+          "draftRound": 1,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "RB",
+          "playerName": "Josh Jacobs",
+          "draftRound": 3,
+          "nflTeam": "GB"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Nico Collins",
+          "draftRound": 2,
+          "nflTeam": "HOU"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jakobi Meyers",
+          "draftRound": 5,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "TE",
+          "playerName": "Colby Parkinson",
+          "draftRound": 6,
+          "nflTeam": "LAR"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Omarion Hampton",
+          "draftRound": 4,
+          "nflTeam": "LAC"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Rashid Shaheed",
+          "draftRound": 7,
+          "nflTeam": "SEA"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Demario Douglas",
+          "draftRound": 8,
+          "nflTeam": "NE"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          22.5,
+          16.6,
+          13.8,
+          13.4,
+          6.6,
+          12.3,
+          0,
+          4.7
+        ],
+        "divisional": [
+          11.7,
+          9.2,
+          8.5,
+          7,
+          5.7,
+          4.6,
+          8.7,
+          3.1
+        ],
+        "championship": [
+          3.3,
+          1.7,
+          3.1,
+          3.9,
+          2.9,
+          1,
+          6.1,
+          2.2
+        ],
+        "superbowl": [
+          1.2,
+          0.5,
+          1.5,
+          2.2,
+          0.2,
+          0.3,
+          4.2,
+          1.3
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          22.5,
+          16.6,
+          13.8,
+          13.4,
+          6.6,
+          12.3,
+          8.7,
+          4.7
+        ],
+        "divisional": [
+          22.5,
+          16.6,
+          13.8,
+          13.4,
+          6.6,
+          12.3,
+          8.7,
+          4.7
+        ],
+        "championship": [
+          22.5,
+          16.6,
+          13.8,
+          13.4,
+          6.6,
+          12.3,
+          8.7,
+          4.7
+        ],
+        "superbowl": [
+          22.5,
+          16.6,
+          13.8,
+          13.4,
+          6.6,
+          12.3,
+          8.7,
+          4.7
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          121,
+          121,
+          36,
+          121,
+          0,
+          121
+        ],
+        "divisional": [
+          142.1,
+          108.1,
+          119.7,
+          107.6,
+          36.2,
+          80.8,
+          174.2,
+          85.3
+        ],
+        "championship": [
+          67.1,
+          32.9,
+          60.9,
+          72.6,
+          26.7,
+          21.1,
+          138.7,
+          62.4
+        ],
+        "superbowl": [
+          28,
+          10.8,
+          31.1,
+          44.5,
+          1.9,
+          6.4,
+          103.1,
+          37
+        ]
+      }
+    },
+    {
+      "teamName": "Jason",
+      "coach": "Kyle Pitts Sr",
+      "roster": [
+        {
+          "slot": "QB",
+          "playerName": "Brock Purdy",
+          "draftRound": 7,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "RB",
+          "playerName": "James Cook",
+          "draftRound": 1,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Parker Washington",
+          "draftRound": 3,
+          "nflTeam": "JAX"
+        },
+        {
+          "slot": "WR",
+          "playerName": "Jauan Jennings",
+          "draftRound": 4,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "TE",
+          "playerName": "George Kittle",
+          "draftRound": 2,
+          "nflTeam": "SF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "RJ Harvey",
+          "draftRound": 5,
+          "nflTeam": "DEN"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Dalton Kincaid",
+          "draftRound": 6,
+          "nflTeam": "BUF"
+        },
+        {
+          "slot": "FLEX",
+          "playerName": "Blake Corum",
+          "draftRound": 8,
+          "nflTeam": "LAR"
+        }
+      ],
+      "scores": {
+        "wildcard": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "divisional": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "championship": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "superbowl": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expectedPoints": {
+        "wildcard": [
+          18.1,
+          17.8,
+          13.4,
+          12.6,
+          14.9,
+          0,
+          10.8,
+          7.8
+        ],
+        "divisional": [
+          6.1,
+          9.2,
+          7,
+          4.2,
+          5,
+          12.2,
+          5.6,
+          6.7
+        ],
+        "championship": [
+          2.2,
+          2.6,
+          3.9,
+          1.6,
+          1.8,
+          7.4,
+          1.6,
+          3.5
+        ],
+        "superbowl": [
+          0.8,
+          1,
+          2.2,
+          0.6,
+          0.7,
+          3.8,
+          0.6,
+          0.2
+        ]
+      },
+      "projectedPoints": {
+        "wildcard": [
+          18.1,
+          17.8,
+          13.4,
+          12.6,
+          14.9,
+          12.2,
+          10.8,
+          7.8
+        ],
+        "divisional": [
+          18.1,
+          17.8,
+          13.4,
+          12.6,
+          14.9,
+          12.2,
+          10.8,
+          7.8
+        ],
+        "championship": [
+          18.1,
+          17.8,
+          13.4,
+          12.6,
+          14.9,
+          12.2,
+          10.8,
+          7.8
+        ],
+        "superbowl": [
+          18.1,
+          17.8,
+          13.4,
+          12.6,
+          14.9,
+          12.2,
+          10.8,
+          7.8
+        ]
+      },
+      "variance": {
+        "wildcard": [
+          30.3,
+          72.3,
+          121,
+          121,
+          36,
+          0,
+          121,
+          121
+        ],
+        "divisional": [
+          83.1,
+          116.6,
+          107.6,
+          75.9,
+          61.5,
+          121,
+          91.9,
+          111.5
+        ],
+        "championship": [
+          39.3,
+          49.8,
+          72.6,
+          32.2,
+          28.6,
+          108.7,
+          32,
+          68.6
+        ],
+        "superbowl": [
+          15.1,
+          20.4,
+          44.5,
+          12,
+          10.9,
+          70.2,
+          12.7,
+          4.3
+        ]
+      }
+    }
+  ],
+  "winProbabilities": [
+    {
+      "teamName": "Colin Quality Learing Center",
+      "expectedTotal": 215.8,
+      "finishProbabilities": [
+        20.3,
+        16.6,
+        15.6,
+        13,
+        11.4,
+        9.4,
+        7.9,
+        5.7
+      ],
+      "winProbability": 20.3,
+      "top3Probability": 52.5,
+      "lastPlaceProbability": 5.7
+    },
+    {
+      "teamName": "Robbie",
+      "expectedTotal": 211.6,
+      "finishProbabilities": [
+        18.7,
+        15.7,
+        14.3,
+        13,
+        11.4,
+        10.6,
+        9,
+        7.4
+      ],
+      "winProbability": 18.7,
+      "top3Probability": 48.7,
+      "lastPlaceProbability": 7.4
+    },
+    {
+      "teamName": "Brady",
+      "expectedTotal": 212.2,
+      "finishProbabilities": [
+        18,
+        16,
+        14.7,
+        13.7,
+        11.5,
+        10.2,
+        8.7,
+        7.2
+      ],
+      "winProbability": 18,
+      "top3Probability": 48.7,
+      "lastPlaceProbability": 7.2
+    },
+    {
+      "teamName": "Cody",
+      "expectedTotal": 192.6,
+      "finishProbabilities": [
+        11.3,
+        11.4,
+        11.3,
+        11.5,
+        11.8,
+        13.1,
+        14,
+        15.7
+      ],
+      "winProbability": 11.3,
+      "top3Probability": 33.9,
+      "lastPlaceProbability": 15.7
+    },
+    {
+      "teamName": "Dylan",
+      "expectedTotal": 198.5,
+      "finishProbabilities": [
+        10.9,
+        12.7,
+        13.3,
+        12.6,
+        13.2,
+        12.8,
+        12.9,
+        11.5
+      ],
+      "winProbability": 10.9,
+      "top3Probability": 36.9,
+      "lastPlaceProbability": 11.5
+    },
+    {
+      "teamName": "Patrick",
+      "expectedTotal": 186,
+      "finishProbabilities": [
+        7.5,
+        9.9,
+        10.2,
+        11.9,
+        13.5,
+        14.5,
+        15.7,
+        16.9
+      ],
+      "winProbability": 7.5,
+      "top3Probability": 27.6,
+      "lastPlaceProbability": 16.9
+    },
+    {
+      "teamName": "Ryan",
+      "expectedTotal": 184,
+      "finishProbabilities": [
+        7,
+        8.8,
+        9.4,
+        12.2,
+        13.5,
+        14.6,
+        15.9,
+        18.6
+      ],
+      "winProbability": 7,
+      "top3Probability": 25.2,
+      "lastPlaceProbability": 18.6
+    },
+    {
+      "teamName": "Jason",
+      "expectedTotal": 185.9,
+      "finishProbabilities": [
+        6.3,
+        9,
+        11.3,
+        12,
+        13.8,
+        14.7,
+        16,
+        16.9
+      ],
+      "winProbability": 6.3,
+      "top3Probability": 26.6,
+      "lastPlaceProbability": 16.9
+    }
+  ],
+  "lastUpdated": {
+    "variance": "2026-01-09T22:47:58.592Z",
+    "winProbabilities": "2026-01-09T22:48:39.099Z"
+  }
+}

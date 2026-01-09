@@ -70,6 +70,7 @@ async function loadFantasyData() {
 async function renderStandings(allTeamData) {
     // Fetch win probabilities
     let winProbData = {};
+    let lastUpdated = null;
     try {
         const response = await fetch('/api/win-probabilities');
         if (response.ok) {
@@ -80,6 +81,7 @@ async function renderStandings(allTeamData) {
                     winProbability: team.winProbability
                 };
             });
+            lastUpdated = data.lastUpdated?.winProbabilities;
         }
     } catch (err) {
         console.error('Failed to fetch win probabilities:', err);
@@ -107,6 +109,9 @@ async function renderStandings(allTeamData) {
     
     // Sort standings based on current sort configuration
     sortStandings(standings);
+    
+    // Update timestamp in header if available
+    updateStandingsTimestamp(lastUpdated);
     
     // Render standings rows
     standingsBody.innerHTML = standings.map((standing, index) => {
@@ -162,6 +167,30 @@ function updateSortIndicators() {
             }
         }
     });
+}
+
+// Update standings timestamp display
+function updateStandingsTimestamp(isoTimestamp) {
+    const timestampEl = document.getElementById('standings-timestamp');
+    if (!timestampEl || !isoTimestamp) return;
+    
+    try {
+        // Convert ISO timestamp to Central Standard Time
+        const date = new Date(isoTimestamp);
+        const options = {
+            timeZone: 'America/Chicago',
+            month: 'numeric',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        };
+        const cstString = date.toLocaleString('en-US', options);
+        timestampEl.textContent = `Last updated: ${cstString} CST`;
+    } catch (err) {
+        console.error('Error formatting timestamp:', err);
+    }
 }
 
 // Handle column header click for sorting

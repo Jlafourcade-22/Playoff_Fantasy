@@ -62,7 +62,8 @@ app.get('/api/win-probabilities', (req, res) => {
         simulations: 10000,
         probabilities: data.winProbabilities,
         timestamp: new Date().toISOString(),
-        cached: true
+        cached: true,
+        lastUpdated: data.lastUpdated || {}
       });
     } else {
       // Fall back to live calculation if not stored
@@ -71,7 +72,8 @@ app.get('/api/win-probabilities', (req, res) => {
         simulations: 10000,
         probabilities: probabilities,
         timestamp: new Date().toISOString(),
-        cached: false
+        cached: false,
+        lastUpdated: data.lastUpdated || {}
       });
     }
   } catch (error) {

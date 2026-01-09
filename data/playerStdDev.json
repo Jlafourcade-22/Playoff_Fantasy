@@ -1,0 +1,27 @@
+{
+  "positionBaselines": {
+    "QB": 5.5,
+    "RB": 8.5,
+    "WR": 11,
+    "TE": 6
+  },
+  "playerAdjustments": {
+    "Caleb Williams (GAY)": 1.5,
+    "Rome Odunze": 1.3,
+    "Luther Burden II": 1.2,
+    "Kyle Monangai": 1.4,
+    "Jaylin Noel": 1.3,
+    "Quentin Johnston": 1.2,
+    "Tetairoa McMillan": 1.3,
+    "Rico Dowdle": 1.1,
+    "AJ Barner": 1.2,
+    "Courtland Sutton": 0.9,
+    "Cooper Kupp": 0.85,
+    "Christian Watson": 1.1,
+    "Rashid Shaheed": 1.2
+  },
+  "notes": {
+    "positionBaselines": "Standard deviation for typical players at each position",
+    "playerAdjustments": "Multiplier applied to position baseline. >1 = more volatile, <1 = more consistent. Rookies, injury-prone, and boom/bust players typically >1. Veterans and target hogs typically <1."
+  }
+}
