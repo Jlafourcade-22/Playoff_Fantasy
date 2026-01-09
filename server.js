@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, readData } = require('./data/mockDb');
-const { getPlayerGameStatsByWeek, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
+const { getPlayerGameStatsByWeek, getPlayerGameStatsByTeam, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
 const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
 const { calculateFantasyPoints } = require('./utils/fantasyPoints');
 
@@ -118,33 +118,38 @@ app.post('/api/update-scores/:round', async (req, res) => {
       return res.status(400).json({ error: `No games scheduled for ${round} round` });
     }
 
-    // Get teams playing in active games
-    const activeTeams = getActiveTeams(games);
+    // TESTING: Hard-coded team and regular season data
+    const activeNFLTeams = ['SEA']; // Test with Seattle
+    const testSeason = '2025REG'; // Regular season
+    const testWeek = 17; // Week 17
     
-    if (activeTeams.length === 0) {
-      return res.json({ 
-        message: 'No games currently active',
-        activeGames: 0,
-        teamsUpdated: 0
-      });
-    }
-
-    // Fetch stats from SportsData.io API
-    const week = roundToWeek(round);
-    const allPlayerStats = await getPlayerGameStatsByWeek('2025POST', week);
+    console.log(`TEST MODE: Fetching stats for ${activeNFLTeams.join(', ')} - ${testSeason} Week ${testWeek}`);
+    
+    // Fetch stats from SportsData.io API - one call per active team
+    const statsPromises = activeNFLTeams.map(team => 
+      getPlayerGameStatsByTeam(testSeason, testWeek, team)
+        .catch(err => {
+          console.error(`Error fetching stats for team ${team}:`, err.message);
+          return []; // Return empty array if fetch fails for a team
+        })
+    );
+    
+    const allTeamStats = await Promise.all(statsPromises);
+    // Flatten the array of arrays into a single array of player stats
+    const allPlayerStats = allTeamStats.flat();
     
     let updatedCount = 0;
     const updateResults = [];
 
-    // Loop through all teams and update scores for players in active games
+    // Loop through all fantasy teams and update scores for players on active NFL teams
     for (const team of data.teams) {
       const updatedScores = [...team.scores[round]]; // Clone current scores
       
       team.roster.forEach((player, index) => {
         const playerTeam = player.nflTeam;
         
-        // Only fetch live stats for players whose teams are currently playing
-        if (shouldFetchLiveStats(playerTeam, games)) {
+        // Only update stats for players whose NFL teams are currently playing
+        if (activeNFLTeams.includes(playerTeam)) {
           const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
           
           if (playerStats) {
@@ -181,7 +186,7 @@ app.post('/api/update-scores/:round', async (req, res) => {
     res.json({
       success: true,
       message: `Updated scores for ${round} round`,
-      activeGames: activeTeams.length / 2,
+      activeGames: activeNFLTeams.length / 2,
       playersUpdated: updatedCount,
       details: updateResults
     });

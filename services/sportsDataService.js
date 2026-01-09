@@ -52,6 +52,55 @@ function getPlayerGameStatsByWeek(season, week) {
 }
 
 /**
+ * Fetch player game stats for a specific team in a given week
+ * @param {string} season - Season and type (e.g., "2025POST")
+ * @param {number} week - Week number (Postseason: 1=Wildcard, 2=Divisional, 3=Championship, 4=Super Bowl)
+ * @param {string} team - Team abbreviation (e.g., "KC", "BUF")
+ * @returns {Promise<Array>} Array of player game stats for the team
+ */
+function getPlayerGameStatsByTeam(season, week, team) {
+  return new Promise((resolve, reject) => {
+    const path = `/v3/nfl/stats/json/PlayerGameStatsByTeam/${season}/${week}/${team}?key=${API_KEY}`;
+    
+    const options = {
+      hostname: BASE_URL,
+      path: path,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      res.on('end', () => {
+        if (res.statusCode === 200) {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed);
+          } catch (error) {
+            reject(new Error('Failed to parse API response'));
+          }
+        } else {
+          reject(new Error(`API request failed with status ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.end();
+  });
+}
+
+/**
  * Find player stats by name and team from API response
  * @param {Array} allPlayerStats - All player stats from API
  * @param {string} playerName - Player's name
@@ -104,6 +153,7 @@ function roundToWeek(round) {
 
 module.exports = {
   getPlayerGameStatsByWeek,
+  getPlayerGameStatsByTeam,
   findPlayerStats,
   getCurrentPlayoffInfo,
   roundToWeek
