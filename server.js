@@ -118,16 +118,24 @@ app.post('/api/update-scores/:round', async (req, res) => {
       return res.status(400).json({ error: `No games scheduled for ${round} round` });
     }
 
-    // TESTING: Hard-coded team and regular season data
-    const activeNFLTeams = ['SEA']; // Test with Seattle
-    const testSeason = '2025REG'; // Regular season
-    const testWeek = 17; // Week 17
+    // Get teams playing in active games
+    const activeTeams = getActiveTeams(games);
     
-    console.log(`TEST MODE: Fetching stats for ${activeNFLTeams.join(', ')} - ${testSeason} Week ${testWeek}`);
+    if (activeTeams.length === 0) {
+      return res.json({ 
+        message: 'No games currently active',
+        activeGames: 0,
+        teamsUpdated: 0
+      });
+    }
+
+    // Get unique NFL teams that are active
+    const activeNFLTeams = [...new Set(activeTeams)];
     
     // Fetch stats from SportsData.io API - one call per active team
+    const week = roundToWeek(round);
     const statsPromises = activeNFLTeams.map(team => 
-      getPlayerGameStatsByTeam(testSeason, testWeek, team)
+      getPlayerGameStatsByTeam('2025POST', week, team)
         .catch(err => {
           console.error(`Error fetching stats for team ${team}:`, err.message);
           return []; // Return empty array if fetch fails for a team
