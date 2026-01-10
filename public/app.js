@@ -28,7 +28,18 @@ let currentSort = {
 // Fetch and display fantasy data for all teams
 async function loadFantasyData() {
     try {
-        // Fetch active games first
+        // First, update scores from live data (checks for active games internally)
+        console.log(`Updating live scores for ${CURRENT_ROUND} round...`);
+        const updateResponse = await fetch(`/api/update-scores/${CURRENT_ROUND}`);
+        
+        if (updateResponse.ok) {
+            const updateResult = await updateResponse.json();
+            console.log('Score update result:', updateResult);
+        } else {
+            console.warn('Failed to update scores, continuing with cached data');
+        }
+
+        // Fetch active games
         const activeGamesResponse = await fetch(`${ACTIVE_GAMES_API_URL}/${CURRENT_ROUND}`);
         if (activeGamesResponse.ok) {
             const activeGamesData = await activeGamesResponse.json();
