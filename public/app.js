@@ -4,7 +4,7 @@ const FANTASY_DATA_API_URL = '/api/fantasy-data';
 const ACTIVE_GAMES_API_URL = '/api/active-games';
 
 // Current round (can be made dynamic later)
-const CURRENT_ROUND = 'wildcard';
+const CURRENT_ROUND = 'divisional';
 
 // DOM elements
 const loading = document.getElementById('loading');
