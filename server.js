@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, updateTeamProjections, readData } = require('./data/mockDb');
+// Use Supabase for data operations
+const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, updatePlayerScoreWithBreakdown, updatePlayerTwoPointConversions, updateTeamProjections, readData } = require('./data/supabaseDb');
 const { getPlayerGameStatsByWeek, getPlayerGameStatsByTeam, getPlayerGameProjectionsByWeek, getPlayerPropsByScoreID, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
 const { getPlayerStatsByTeams, getPlayerStatsByGames } = require('./services/espnScraperService');
 const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
@@ -19,24 +21,21 @@ app.use(express.static('public'));
 // API Routes
 
 // Get all teams list
-app.get('/api/teams', (req, res) => {
+app.get('/api/teams', async (req, res) => {
   try {
-    const teams = getAllTeams();
-    const teamList = teams.map(team => ({
-      teamName: team.teamName,
-      coach: team.coach
-    }));
-    res.json(teamList);
+    const teams = await getAllTeams();
+    res.json(teams);
   } catch (error) {
+    console.error('Error fetching teams:', error);
     res.status(500).json({ error: 'Failed to fetch teams' });
   }
 });
 
 // Get active games for a round
-app.get('/api/active-games/:round', (req, res) => {
+app.get('/api/active-games/:round', async (req, res) => {
   try {
     const round = req.params.round.toLowerCase();
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round] || [];
     
     const activeTeams = getActiveTeams(games);
@@ -48,14 +47,15 @@ app.get('/api/active-games/:round', (req, res) => {
       totalActiveGames: activeTeams.length / 2
     });
   } catch (error) {
+    console.error('Error fetching active games:', error);
     res.status(500).json({ error: 'Failed to fetch active games' });
   }
 });
 
 // Get win probabilities for all teams
-app.get('/api/win-probabilities', (req, res) => {
+app.get('/api/win-probabilities', async (req, res) => {
   try {
-    const data = readData();
+    const data = await readData();
     
     // Return stored win probabilities if available
     if (data.winProbabilities) {
@@ -84,31 +84,33 @@ app.get('/api/win-probabilities', (req, res) => {
 });
 
 // Get fantasy data for a specific team
-app.get('/api/fantasy-data/:teamName', (req, res) => {
+app.get('/api/fantasy-data/:teamName', async (req, res) => {
   try {
-    const data = getFantasyData(req.params.teamName);
+    const data = await getFantasyData(req.params.teamName);
     res.json(data);
   } catch (error) {
+    console.error('Error fetching fantasy data:', error);
     res.status(404).json({ error: error.message });
   }
 });
 
 // Legacy endpoint - defaults to first team for backwards compatibility
-app.get('/api/fantasy-data', (req, res) => {
+app.get('/api/fantasy-data', async (req, res) => {
   try {
-    const teams = getAllTeams();
+    const teams = await getAllTeams();
     if (teams.length === 0) {
       return res.status(404).json({ error: 'No teams found' });
     }
-    const data = getFantasyData(teams[0].teamName);
+    const data = await getFantasyData(teams[0].teamName);
     res.json(data);
   } catch (error) {
+    console.error('Error fetching fantasy data:', error);
     res.status(500).json({ error: 'Failed to fetch fantasy data' });
   }
 });
 
 // Update scores for a team
-app.put('/api/fantasy-data/:teamName/scores', (req, res) => {
+app.put('/api/fantasy-data/:teamName/scores', async (req, res) => {
   try {
     const { round, scores } = req.body;
     
@@ -120,15 +122,43 @@ app.put('/api/fantasy-data/:teamName/scores', (req, res) => {
       return res.status(400).json({ error: 'Scores must be an array of 8 numbers' });
     }
 
-    const success = updateTeamScores(req.params.teamName, round, scores);
+    await updateTeamScores(req.params.teamName, round, scores);
     
-    if (success) {
-      const updatedData = getFantasyData(req.params.teamName);
-      res.json({ success: true, data: updatedData });
-    } else {
-      res.status(500).json({ error: 'Failed to update scores' });
-    }
+    const updatedData = await getFantasyData(req.params.teamName);
+    res.json({ success: true, data: updatedData });
   } catch (error) {
+    console.error('Error updating scores:', error);
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Update manual 2-point conversions for a player
+app.put('/api/fantasy-data/:teamName/two-point', async (req, res) => {
+  try {
+    const { round, playerIndex, twoPtCount } = req.body;
+    
+    if (!round || playerIndex === undefined || twoPtCount === undefined) {
+      return res.status(400).json({ error: 'Round, playerIndex, and twoPtCount are required' });
+    }
+
+    if (typeof playerIndex !== 'number' || playerIndex < 0 || playerIndex > 7) {
+      return res.status(400).json({ error: 'playerIndex must be a number between 0-7' });
+    }
+
+    if (typeof twoPtCount !== 'number' || twoPtCount < 0) {
+      return res.status(400).json({ error: 'twoPtCount must be a non-negative number' });
+    }
+
+    await updatePlayerTwoPointConversions(req.params.teamName, round, playerIndex, twoPtCount);
+    
+    const updatedData = await getFantasyData(req.params.teamName);
+    res.json({ 
+      success: true, 
+      message: `Updated ${updatedData.roster[playerIndex].playerName} 2PT conversions to ${twoPtCount} for ${round} round`,
+      data: updatedData 
+    });
+  } catch (error) {
+    console.error('Error updating 2PT conversions:', error);
     res.status(400).json({ error: error.message });
   }
 });
@@ -144,7 +174,7 @@ app.get('/api/update-scores/:round', async (req, res) => {
     }
 
     // Read data to get games and teams
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round];
     
     if (!games || games.length === 0) {
@@ -194,10 +224,16 @@ app.get('/api/update-scores/:round', async (req, res) => {
           const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
           
           if (playerStats) {
-            const fantasyPoints = calculateFantasyPoints(playerStats);
-            const breakdown = getPointsBreakdown(playerStats);
+            const result = calculateFantasyPoints(playerStats);
+            const fantasyPoints = result.points;
+            const breakdown = result.breakdown;
+            
             updatedScores[index] = fantasyPoints;
             updatedCount++;
+            
+            // Update score with breakdown in database
+            updatePlayerScoreWithBreakdown(team.teamName, round, index, fantasyPoints, breakdown)
+              .catch(err => console.error(`Error updating ${player.playerName}:`, err.message));
             
             updateResults.push({
               team: team.teamName,
@@ -205,12 +241,6 @@ app.get('/api/update-scores/:round', async (req, res) => {
               nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
-              stats: {
-                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
-                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
-                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
-                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
-              },
               breakdown: breakdown,
               updated: true
             });
@@ -229,7 +259,7 @@ app.get('/api/update-scores/:round', async (req, res) => {
       
       // Update the team's scores if any changed
       if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
-        updateTeamScores(team.teamName, round, updatedScores);
+        await updateTeamScores(team.teamName, round, updatedScores);
       }
     }
 
@@ -261,7 +291,7 @@ app.get('/api/update-scores-all/:round', async (req, res) => {
     }
 
     // Read data to get games and teams
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round];
     
     if (!games || games.length === 0) {
@@ -304,10 +334,16 @@ app.get('/api/update-scores-all/:round', async (req, res) => {
           const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
           
           if (playerStats) {
-            const fantasyPoints = calculateFantasyPoints(playerStats);
-            const breakdown = getPointsBreakdown(playerStats);
+            const result = calculateFantasyPoints(playerStats);
+            const fantasyPoints = result.points;
+            const breakdown = result.breakdown;
+            
             updatedScores[index] = fantasyPoints;
             updatedCount++;
+            
+            // Update score with breakdown in database
+            updatePlayerScoreWithBreakdown(team.teamName, round, index, fantasyPoints, breakdown)
+              .catch(err => console.error(`Error updating ${player.playerName}:`, err.message));
             
             updateResults.push({
               team: team.teamName,
@@ -315,12 +351,6 @@ app.get('/api/update-scores-all/:round', async (req, res) => {
               nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
-              stats: {
-                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
-                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
-                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
-                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
-              },
               breakdown: breakdown,
               updated: true
             });
@@ -339,7 +369,7 @@ app.get('/api/update-scores-all/:round', async (req, res) => {
       
       // Update the team's scores if any changed
       if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
-        updateTeamScores(team.teamName, round, updatedScores);
+        await updateTeamScores(team.teamName, round, updatedScores);
       }
     }
 
@@ -392,7 +422,7 @@ app.post('/api/update-projections/:round', async (req, res) => {
     }
 
     // Read data to get all fantasy teams
-    const data = readData();
+    const data = await readData();
     let updatedCount = 0;
     const updateResults = [];
 
@@ -449,7 +479,7 @@ app.post('/api/update-projections/:round', async (req, res) => {
       });
       
       // Update the team's projections
-      updateTeamProjections(team.teamName, round, updatedProjections);
+      await updateTeamProjections(team.teamName, round, updatedProjections);
     }
 
     res.json({
@@ -480,7 +510,7 @@ app.post('/api/update-projections-props/:round', async (req, res) => {
     }
 
     // Read data to get games for this round
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round];
     
     if (!games || games.length === 0) {
@@ -640,7 +670,7 @@ app.post('/api/update-projections-props/:round', async (req, res) => {
       });
       
       // Update the team's projections
-      updateTeamProjections(team.teamName, round, updatedProjections);
+      await updateTeamProjections(team.teamName, round, updatedProjections);
     }
 
     res.json({
@@ -727,7 +757,7 @@ app.get('/api/update-scores-espn/:round', async (req, res) => {
     }
 
     // Read data to get games and teams
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round];
     
     if (!games || games.length === 0) {
@@ -770,10 +800,16 @@ app.get('/api/update-scores-espn/:round', async (req, res) => {
           const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
           
           if (playerStats) {
-            const fantasyPoints = calculateFantasyPoints(playerStats);
-            const breakdown = getPointsBreakdown(playerStats);
+            const result = calculateFantasyPoints(playerStats);
+            const fantasyPoints = result.points;
+            const breakdown = result.breakdown;
+            
             updatedScores[index] = fantasyPoints;
             updatedCount++;
+            
+            // Update score with breakdown in database
+            updatePlayerScoreWithBreakdown(team.teamName, round, index, fantasyPoints, breakdown)
+              .catch(err => console.error(`Error updating ${player.playerName}:`, err.message));
             
             updateResults.push({
               team: team.teamName,
@@ -781,12 +817,6 @@ app.get('/api/update-scores-espn/:round', async (req, res) => {
               nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
-              stats: {
-                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
-                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
-                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
-                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
-              },
               breakdown: breakdown,
               updated: true,
               source: 'ESPN'
@@ -807,7 +837,7 @@ app.get('/api/update-scores-espn/:round', async (req, res) => {
       
       // Update the team's scores if any changed
       if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
-        updateTeamScores(team.teamName, round, updatedScores);
+        await updateTeamScores(team.teamName, round, updatedScores);
       }
     }
 
@@ -840,7 +870,7 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
     }
 
     // Read data to get games and teams
-    const data = readData();
+    const data = await readData();
     const games = data.nflGames[round];
     
     if (!games || games.length === 0) {
@@ -876,10 +906,16 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
           const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
           
           if (playerStats) {
-            const fantasyPoints = calculateFantasyPoints(playerStats);
-            const breakdown = getPointsBreakdown(playerStats);
+            const result = calculateFantasyPoints(playerStats);
+            const fantasyPoints = result.points;
+            const breakdown = result.breakdown;
+            
             updatedScores[index] = fantasyPoints;
             updatedCount++;
+            
+            // Update score with breakdown in database
+            updatePlayerScoreWithBreakdown(team.teamName, round, index, fantasyPoints, breakdown)
+              .catch(err => console.error(`Error updating ${player.playerName}:`, err.message));
             
             updateResults.push({
               team: team.teamName,
@@ -887,12 +923,6 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
               nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
-              stats: {
-                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
-                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
-                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
-                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
-              },
               breakdown: breakdown,
               updated: true,
               source: 'ESPN'
@@ -912,20 +942,18 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
       });
       
       // Update the team's scores if any changed
-      // COMMENTED OUT FOR TESTING - Uncomment to save changes to data.json
-      // if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
-      //   updateTeamScores(team.teamName, round, updatedScores);
-      // }
+      if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
+        await updateTeamScores(team.teamName, round, updatedScores);
+      }
     }
 
     res.json({
       success: true,
-      message: `Updated scores for ALL games in ${round} round from ESPN (TEST MODE - not saving to file)`,
+      message: `Updated scores for ALL games in ${round} round from ESPN`,
       totalGames: games.length,
       teamsInRound: uniqueNFLTeams.length,
       playersUpdated: updatedCount,
       source: 'ESPN Box Score',
-      testMode: true,
       details: updateResults
     });
 
@@ -934,6 +962,25 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
     res.status(500).json({ 
       error: 'Failed to update all scores from ESPN',
       message: error.message 
+    });
+  }
+});
+
+// Test Supabase connection
+app.get('/api/test-supabase', async (req, res) => {
+  try {
+    const teams = await getAllTeams();
+    res.json({
+      success: true,
+      message: 'Supabase connection successful!',
+      teamsFound: teams.length,
+      teams: teams
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Supabase connection failed',
+      error: error.message
     });
   }
 });

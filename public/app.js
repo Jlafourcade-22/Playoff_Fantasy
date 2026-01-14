@@ -19,6 +19,17 @@ let activeTeams = [];
 // Store eliminated teams globally
 let eliminatedTeams = [];
 
+// Store all team data globally for breakdown access
+let allTeamsData = [];
+
+// Store current modal context for 2PT conversions
+let currentModalContext = {
+    playerName: '',
+    teamName: '',
+    round: '',
+    playerIndex: -1
+};
+
 // Store current sort configuration
 let currentSort = {
     column: 'totalPoints',
@@ -59,6 +70,9 @@ async function loadFantasyData() {
             fetch(`${FANTASY_DATA_API_URL}/${team.teamName}`).then(res => res.json())
         );
         const allTeamData = await Promise.all(teamDataPromises);
+
+        // Store globally for breakdown access
+        allTeamsData = allTeamData;
 
         // Render standings table
         renderStandings(allTeamData);
@@ -286,25 +300,214 @@ function renderTableRows(roster) {
         <tr class="${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-750'} ${statusClass}">
             <td class="px-4 py-3 text-sm font-medium text-blue-400 border-b border-gray-700 ${pulseClass}">${player.slot}</td>
             <td class="px-4 py-3 text-sm border-b border-gray-700 ${pulseClass}">${player.playerName}</td>
-            <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.wildcard)}</td>
-            <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.divisional)}</td>
-            <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.championship)}</td>
-            <td class="px-4 py-3 text-sm text-center border-b border-gray-700">${formatScore(player.superbowl)}</td>
-            <td class="px-4 py-3 text-sm text-center font-semibold text-yellow-400 border-b border-gray-700">${formatScore(player.total)}</td>
+            <td class="px-4 py-3 text-sm text-center border-b border-gray-700 ${player.wildcard !== null ? 'score-clickable' : ''}" 
+                ${player.wildcard !== null ? `onclick="showBreakdown('${player.playerName}', 'wildcard', ${index})"` : ''}>
+                ${formatScore(player.wildcard, player.slot)}
+            </td>
+            <td class="px-4 py-3 text-sm text-center border-b border-gray-700 ${player.divisional !== null ? 'score-clickable' : ''}"
+                ${player.divisional !== null ? `onclick="showBreakdown('${player.playerName}', 'divisional', ${index})"` : ''}>
+                ${formatScore(player.divisional, player.slot)}
+            </td>
+            <td class="px-4 py-3 text-sm text-center border-b border-gray-700 ${player.championship !== null ? 'score-clickable' : ''}"
+                ${player.championship !== null ? `onclick="showBreakdown('${player.playerName}', 'championship', ${index})"` : ''}>
+                ${formatScore(player.championship, player.slot)}
+            </td>
+            <td class="px-4 py-3 text-sm text-center border-b border-gray-700 ${player.superbowl !== null ? 'score-clickable' : ''}"
+                ${player.superbowl !== null ? `onclick="showBreakdown('${player.playerName}', 'superbowl', ${index})"` : ''}>
+                ${formatScore(player.superbowl, player.slot)}
+            </td>
+            <td class="px-4 py-3 text-sm text-center font-semibold text-yellow-400 border-b border-gray-700">${formatScore(player.total, player.slot)}</td>
         </tr>
     `;
     }).join('');
 }
 
 // Format score display
-function formatScore(score) {
+function formatScore(score, slot) {
     if (score === null || score === undefined) {
         return '<span class="text-gray-500">-</span>';
     }
     if (score === 0) {
-        return '0.0';
+        // QBs show 0.00, others show 0.0
+        return slot === 'QB' ? '0.00' : '0.0';
     }
-    return score.toFixed(1);
+    // QBs get 2 decimal places, everyone else gets 1
+    return slot === 'QB' ? score.toFixed(2) : score.toFixed(1);
+}
+
+// Show scoring breakdown modal
+function showBreakdown(playerName, round, playerIndex) {
+    // Find the player data and team name
+    let player = null;
+    let teamName = '';
+    for (const teamData of allTeamsData) {
+        const foundPlayer = teamData.roster.find(p => p.playerName === playerName);
+        if (foundPlayer) {
+            player = foundPlayer;
+            teamName = teamData.teamName;
+            break;
+        }
+    }
+    
+    if (!player) {
+        console.error('Player not found:', playerName);
+        return;
+    }
+    
+    // Store context for 2PT conversions
+    currentModalContext = {
+        playerName,
+        teamName,
+        round,
+        playerIndex
+    };
+    
+    // Get the breakdown for this round
+    const breakdownKey = `breakdown${round.charAt(0).toUpperCase() + round.slice(1)}`;
+    const breakdown = player[breakdownKey];
+    
+    // Get 2PT conversion count for this round
+    const twoPtKey = `twoPt${round.charAt(0).toUpperCase() + round.slice(1)}`;
+    const twoPtCount = player[twoPtKey] || 0;
+    
+    // Set modal title and 2PT input value
+    document.getElementById('modalTitle').textContent = 'Scoring Breakdown';
+    document.getElementById('modalSubtitle').textContent = `${playerName} - ${round.charAt(0).toUpperCase() + round.slice(1)} Round`;
+    document.getElementById('twoPtInput').value = twoPtCount;
+    
+    // Build modal body
+    const modalBody = document.getElementById('modalBody');
+    
+    if ((!breakdown || Object.keys(breakdown).length === 0) && twoPtCount === 0) {
+        modalBody.innerHTML = '<p class="text-gray-400 text-center py-4">No scoring breakdown available for this game.</p>';
+    } else {
+        let totalPoints = 0;
+        let breakdownHTML = '<div class="space-y-1">';
+        
+        // Category labels mapping
+        const categoryLabels = {
+            'passing_yards': 'Passing Yards',
+            'passing_tds': 'Passing TDs',
+            'interceptions': 'Interceptions',
+            'rushing_yards': 'Rushing Yards',
+            'rushing_tds': 'Rushing TDs',
+            'receptions': 'Receptions (PPR)',
+            'receiving_yards': 'Receiving Yards',
+            'receiving_tds': 'Receiving TDs',
+            'fumbles_lost': 'Fumbles Lost',
+            'two_point_conversions': '2-Point Conversions'
+        };
+        
+        // Render each category from API breakdown
+        if (breakdown) {
+            for (const [key, data] of Object.entries(breakdown)) {
+                const label = categoryLabels[key] || key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const isNegative = data.points < 0;
+                const pointsColor = isNegative ? 'text-red-400' : 'text-green-400';
+                
+                breakdownHTML += `
+                    <div class="breakdown-item">
+                        <div>
+                            <div class="font-medium text-gray-200">${label}</div>
+                            <div class="text-xs text-gray-400">${data.calculation}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold ${pointsColor}">${data.points > 0 ? '+' : ''}${data.points.toFixed(2)}</div>
+                            <div class="text-xs text-gray-400">${data.stat}</div>
+                        </div>
+                    </div>
+                `;
+                totalPoints += data.points;
+            }
+        }
+        
+        // Add manual 2PT conversions if they exist
+        if (twoPtCount > 0) {
+            const twoPtPoints = twoPtCount * 2;
+            breakdownHTML += `
+                <div class="breakdown-item bg-blue-900/30">
+                    <div>
+                        <div class="font-medium text-gray-200">2-Point Conversions (Manual)</div>
+                        <div class="text-xs text-gray-400">${twoPtCount} × 2</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-semibold text-green-400">+${twoPtPoints.toFixed(2)}</div>
+                        <div class="text-xs text-gray-400">${twoPtCount} conversions</div>
+                    </div>
+                </div>
+            `;
+            totalPoints += twoPtPoints;
+        }
+        
+        breakdownHTML += `
+            <div class="breakdown-item bg-gray-700 font-bold">
+                <div class="text-lg text-white">Total Points</div>
+                <div class="text-2xl text-yellow-400">${totalPoints.toFixed(2)}</div>
+            </div>
+        `;
+        
+        breakdownHTML += '</div>';
+        modalBody.innerHTML = breakdownHTML;
+    }
+    
+    // Show modal
+    document.getElementById('breakdownModal').classList.add('show');
+}
+
+// Close breakdown modal
+function closeBreakdownModal() {
+    document.getElementById('breakdownModal').classList.remove('show');
+}
+
+// Save 2PT conversions for current player
+async function saveTwoPointConversions() {
+    const twoPtCount = parseInt(document.getElementById('twoPtInput').value);
+    
+    if (isNaN(twoPtCount) || twoPtCount < 0) {
+        alert('Please enter a valid non-negative number');
+        return;
+    }
+    
+    const { playerName, teamName, round, playerIndex } = currentModalContext;
+    
+    try {
+        const response = await fetch(`/api/fantasy-data/${teamName}/two-point`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                round,
+                playerIndex,
+                twoPtCount
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to update 2PT conversions');
+        }
+        
+        const result = await response.json();
+        console.log('2PT update result:', result);
+        
+        // Close modal and reload data
+        closeBreakdownModal();
+        loadFantasyData();
+        
+        // Show success message briefly
+        alert(`Updated ${playerName} 2PT conversions to ${twoPtCount} for ${round} round`);
+    } catch (error) {
+        console.error('Error saving 2PT conversions:', error);
+        alert('Failed to save 2PT conversions. Please try again.');
+    }
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('breakdownModal');
+    if (event.target === modal) {
+        closeBreakdownModal();
+    }
 }
 
 // Initialize app

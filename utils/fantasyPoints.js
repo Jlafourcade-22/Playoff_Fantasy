@@ -1,58 +1,130 @@
 /**
  * Calculate fantasy points for a player based on standard scoring
  * @param {Object} playerStats - Player game stats from SportsData.io API
- * @returns {number} Fantasy points rounded to 1 decimal
+ * @returns {Object} Object with total points and scoring breakdown
  */
 function calculateFantasyPoints(playerStats) {
-  let points = 0;
+  const breakdown = {};
+  let totalPoints = 0;
 
-  // Passing stats
-  if (playerStats.PassingYards) {
-    points += playerStats.PassingYards * 0.04; // 1 point per 25 yards
-  }
-  if (playerStats.PassingTouchdowns) {
-    points += playerStats.PassingTouchdowns * 6;
-  }
-  if (playerStats.Interceptions) {
-    points -= playerStats.Interceptions * 2;
-  }
-
-  // Rushing stats
-  if (playerStats.RushingYards) {
-    points += playerStats.RushingYards * 0.1; // 1 point per 10 yards
-  }
-  if (playerStats.RushingTouchdowns) {
-    points += playerStats.RushingTouchdowns * 6;
+  // Passing Yards (0.04 per yard = 1 point per 25 yards)
+  if (playerStats.PassingYards && playerStats.PassingYards > 0) {
+    const points = playerStats.PassingYards * 0.04;
+    breakdown.passing_yards = {
+      stat: `${playerStats.PassingYards} yds`,
+      calculation: `${playerStats.PassingYards} × 0.04`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
   }
 
-  // Receiving stats
-  if (playerStats.ReceivingYards) {
-    points += playerStats.ReceivingYards * 0.1; // 1 point per 10 yards
-  }
-  if (playerStats.Receptions) {
-    points += playerStats.Receptions * 1; // PPR
-  }
-  if (playerStats.ReceivingTouchdowns) {
-    points += playerStats.ReceivingTouchdowns * 6;
-  }
-
-  // Fumbles
-  if (playerStats.FumblesLost) {
-    points -= playerStats.FumblesLost * 2;
+  // Passing Touchdowns (6 points each)
+  if (playerStats.PassingTouchdowns && playerStats.PassingTouchdowns > 0) {
+    const points = playerStats.PassingTouchdowns * 6;
+    breakdown.passing_tds = {
+      stat: `${playerStats.PassingTouchdowns} TD`,
+      calculation: `${playerStats.PassingTouchdowns} × 6`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
   }
 
-  // 2-Point Conversions
-  if (playerStats.TwoPointConversionPasses) {
-    points += playerStats.TwoPointConversionPasses * 2;
-  }
-  if (playerStats.TwoPointConversionRuns) {
-    points += playerStats.TwoPointConversionRuns * 2;
-  }
-  if (playerStats.TwoPointConversionReceptions) {
-    points += playerStats.TwoPointConversionReceptions * 2;
+  // Interceptions (-2 points each)
+  if (playerStats.Interceptions && playerStats.Interceptions > 0) {
+    const points = playerStats.Interceptions * -2;
+    breakdown.interceptions = {
+      stat: `${playerStats.Interceptions} INT`,
+      calculation: `${playerStats.Interceptions} × -2`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
   }
 
-  return points
+  // Rushing Yards (0.1 per yard = 1 point per 10 yards)
+  if (playerStats.RushingYards && playerStats.RushingYards > 0) {
+    const points = playerStats.RushingYards * 0.1;
+    breakdown.rushing_yards = {
+      stat: `${playerStats.RushingYards} yds`,
+      calculation: `${playerStats.RushingYards} × 0.1`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // Rushing Touchdowns (6 points each)
+  if (playerStats.RushingTouchdowns && playerStats.RushingTouchdowns > 0) {
+    const points = playerStats.RushingTouchdowns * 6;
+    breakdown.rushing_tds = {
+      stat: `${playerStats.RushingTouchdowns} TD`,
+      calculation: `${playerStats.RushingTouchdowns} × 6`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // Receptions (1 point each - PPR)
+  if (playerStats.Receptions && playerStats.Receptions > 0) {
+    const points = playerStats.Receptions * 1;
+    breakdown.receptions = {
+      stat: `${playerStats.Receptions} rec`,
+      calculation: `${playerStats.Receptions} × 1`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // Receiving Yards (0.1 per yard = 1 point per 10 yards)
+  if (playerStats.ReceivingYards && playerStats.ReceivingYards > 0) {
+    const points = playerStats.ReceivingYards * 0.1;
+    breakdown.receiving_yards = {
+      stat: `${playerStats.ReceivingYards} yds`,
+      calculation: `${playerStats.ReceivingYards} × 0.1`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // Receiving Touchdowns (6 points each)
+  if (playerStats.ReceivingTouchdowns && playerStats.ReceivingTouchdowns > 0) {
+    const points = playerStats.ReceivingTouchdowns * 6;
+    breakdown.receiving_tds = {
+      stat: `${playerStats.ReceivingTouchdowns} TD`,
+      calculation: `${playerStats.ReceivingTouchdowns} × 6`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // Fumbles Lost (-2 points each)
+  if (playerStats.FumblesLost && playerStats.FumblesLost > 0) {
+    const points = playerStats.FumblesLost * -2;
+    breakdown.fumbles_lost = {
+      stat: `${playerStats.FumblesLost} lost`,
+      calculation: `${playerStats.FumblesLost} × -2`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  // 2-Point Conversions (2 points each)
+  const twoPointTotal = (playerStats.TwoPointConversionPasses || 0) +
+                        (playerStats.TwoPointConversionRuns || 0) +
+                        (playerStats.TwoPointConversionReceptions || 0);
+  
+  if (twoPointTotal > 0) {
+    const points = twoPointTotal * 2;
+    breakdown.two_point_conversions = {
+      stat: `${twoPointTotal} conversions`,
+      calculation: `${twoPointTotal} × 2`,
+      points: parseFloat(points.toFixed(2))
+    };
+    totalPoints += points;
+  }
+
+  return {
+    points: parseFloat(totalPoints.toFixed(2)),
+    breakdown: breakdown
+  };
 }
 
 /**
