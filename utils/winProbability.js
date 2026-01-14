@@ -23,15 +23,23 @@ function simulateOneSeason(teams) {
     
     const rounds = ['wildcard', 'divisional', 'championship', 'superbowl'];
     
-    rounds.forEach(round => {
-      team.expectedPoints[round].forEach((expectedPts, idx) => {
-        // Get player's variance for this round
-        const variance = team.variance[round][idx];
-        const stdDev = Math.sqrt(variance);
-        
-        // Generate random score with player-specific standard deviation
-        totalScore += randomNormal(expectedPts, stdDev);
-      });
+    rounds.forEach((round, roundIdx) => {
+      if (roundIdx === 0) {
+        // For wildcard, use actual scores
+        team.scores.wildcard.forEach(score => {
+          totalScore += (score || 0);
+        });
+      } else {
+        // For other rounds, use expected points with variance
+        team.expectedPoints[round].forEach((expectedPts, idx) => {
+          // Get player's variance for this round
+          const variance = team.variance[round][idx];
+          const stdDev = Math.sqrt(variance);
+          
+          // Generate random score with player-specific standard deviation
+          totalScore += randomNormal(expectedPts, stdDev);
+        });
+      }
     });
     
     return {
@@ -52,9 +60,9 @@ function calculateWinProbabilities(teams) {
   teams.forEach(team => {
     finishCounts[team.teamName] = [0, 0, 0, 0, 0, 0, 0, 0]; // counts for 1st through 8th
     
-    // Calculate total expected points
+    // Calculate total expected points: wildcard actual scores + expected for remaining rounds
     const totalExpected = 
-      team.expectedPoints.wildcard.reduce((a, b) => a + b, 0) +
+      team.scores.wildcard.reduce((a, b) => a + (b || 0), 0) +
       team.expectedPoints.divisional.reduce((a, b) => a + b, 0) +
       team.expectedPoints.championship.reduce((a, b) => a + b, 0) +
       team.expectedPoints.superbowl.reduce((a, b) => a + b, 0);

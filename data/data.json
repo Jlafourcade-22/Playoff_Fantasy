@@ -36,22 +36,29 @@
     "championship": [],
     "superbowl": []
   },
-  "eliminatedTeams": [],
+  "eliminatedTeams": [
+    "PHI",
+    "JAX",
+    "CAR",
+    "GB",
+    "PIT",
+    "LAC"
+  ],
   "teamProbabilities": {
-    "PHI": [ 1, 0.705, 0.267, 0.093 ],
-    "BUF": [ 1, 0.519, 0.145, 0.055 ],
-    "LAR": [ 1, 0.861, 0.443, 0.024 ],
-    "CHI": [ 1, 0.485, 0.307, 0.098 ],
-    "GB": [ 1, 0.553, 0.103, 0.032 ],
-    "JAX": [ 1, 0.519, 0.293, 0.164 ],
-    "SF": [ 1, 0.335, 0.124, 0.044 ],
-    "NE": [ 1, 0.664, 0.47, 0.27 ],
-    "LAC": [ 1, 0.375, 0.081, 0.024 ],
-    "PIT": [ 1, 0.423, 0.18, 0.065 ],
-    "HOU": [ 1, 0.618, 0.227, 0.107 ],
-    "CAR": [ 1, 0.178, 0.051, 0.011 ],
-    "SEA": [ 0, 1, 0.706, 0.483 ],
-    "DEN": [ 0, 1, 0.604, 0.315 ]
+    "PHI": [ 1, 0, 0, 0 ],
+    "BUF": [ 1, 1, 0.519, 0.27 ],
+    "LAR": [ 1, 1, 0.672, 0.367 ],
+    "CHI": [ 1, 1, 0.367, 0.141 ],
+    "GB": [ 1, 0, 0, 0 ],
+    "JAX": [ 1, 0, 0, 0 ],
+    "SF": [ 1, 1, 0.263, 0.877 ],
+    "NE": [ 1, 1, 0.618, 0.313 ],
+    "LAC": [ 1, 0, 0, 0 ],
+    "PIT": [ 1, 0, 0, 0 ],
+    "HOU": [ 1, 1, 0.424, 0.213 ],
+    "CAR": [ 1, 0, 0, 0 ],
+    "SEA": [ 0, 1, 0.778, 0.455 ],
+    "DEN": [ 0, 1, 0.519, 0.263 ]
   },
   "teams": [
     {
@@ -68,22 +75,22 @@
         { "slot": "FLEX", "playerName": "Quentin Johnston", "draftRound": 8, "nflTeam": "LAC" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 14.12, 17.2, 34.5, null, null, 6.9, null, 5 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 19.5, 12.4, 21.1, 0, 0, 7.3, 0, 11.2 ],
-        "divisional": [ 13.7, 6, 18.2, 12.9, 8.7, 4.5, 11.3, 4.2 ],
-        "championship": [ 5.2, 3.8, 9.3, 7.8, 6.1, 1.7, 8, 0.9 ],
-        "superbowl": [ 1.8, 1.2, 0.5, 4.1, 4.2, 0.8, 5.5, 0.3 ]
+        "divisional": [ 0, 14.4, 22, 12.8, 7.7, 7.3, 13.4, 0 ],
+        "championship": [ 0, 5.3, 14.8, 6.6, 6, 3.1, 10.4, 0 ],
+        "superbowl": [ 0, 2, 8.1, 3.4, 3.5, 1.6, 6.1, 0 ]
       },
       "projectedPoints": {
         "wildcard": [ 19.5, 12.4, 21.1, 12.9, 8.7, 7.3, 11.3, 11.2 ],
-        "divisional": [ 19.5, 12.4, 21.1, 12.9, 8.7, 7.3, 11.3, 11.2 ],
-        "championship": [ 19.5, 12.4, 21.1, 12.9, 8.7, 7.3, 11.3, 11.2 ],
-        "superbowl": [ 19.5, 12.4, 21.1, 12.9, 8.7, 7.3, 11.3, 11.2 ]
+        "divisional": [ 19.5, 14.4, 22, 12.8, 7.7, 7.3, 13.4, 11.2 ],
+        "championship": [ 19.5, 14.4, 22, 12.8, 7.7, 7.3, 13.4, 11.2 ],
+        "superbowl": [ 19.5, 14.4, 22, 12.8, 7.7, 7.3, 13.4, 11.2 ]
       },
       "variance": {
         "wildcard": [ 24.5, 79.7, 87.4, 0, 0, 189.1, 0, 174.2 ],
@@ -106,22 +113,22 @@
         { "slot": "FLEX", "playerName": "Jayden Reed", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 25.38, 15.8, null, 6.8, 6.5, 20.2, 2.5, 15.7 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 20.7, 12.8, 0, 11.2, 7.6, 12, 12.2, 11.2 ],
-        "divisional": [ 10.7, 8.5, 21.2, 5.4, 6.5, 6.2, 2.2, 6.2 ],
-        "championship": [ 6.1, 6, 15, 3.4, 3.4, 1.7, 0.6, 1.2 ],
-        "superbowl": [ 3.4, 3.5, 10.2, 1.1, 0.2, 0.7, 0.1, 0.4 ]
+        "divisional": [ 0, 12.7, 20.3, 12.3, 7.5, 14.2, 0, 0 ],
+        "championship": [ 0, 7.8, 15.8, 4.5, 5, 7.4, 0, 0 ],
+        "superbowl": [ 0, 4, 9.2, 1.7, 2.8, 3.8, 0, 0 ]
       },
       "projectedPoints": {
         "wildcard": [ 20.7, 12.8, 21.2, 11.2, 7.6, 12, 12.2, 11.2 ],
-        "divisional": [ 20.7, 12.8, 21.2, 11.2, 7.6, 12, 12.2, 11.2 ],
-        "championship": [ 20.7, 12.8, 21.2, 11.2, 7.6, 12, 12.2, 11.2 ],
-        "superbowl": [ 20.7, 12.8, 21.2, 11.2, 7.6, 12, 12.2, 11.2 ]
+        "divisional": [ 20.7, 12.7, 20.3, 12.3, 7.5, 14.2, 12.2, 11.2 ],
+        "championship": [ 20.7, 12.7, 20.3, 12.3, 7.5, 14.2, 12.2, 11.2 ],
+        "superbowl": [ 20.7, 12.7, 20.3, 12.3, 7.5, 14.2, 12.2, 11.2 ]
       },
       "variance": {
         "wildcard": [ 30.3, 72.3, 0, 174.2, 43.6, 109.2, 146.4, 133.4 ],
@@ -144,22 +151,22 @@
         { "slot": "FLEX", "playerName": "Kyle Monangai", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 25.44, 29.4, 5.5, 6.4, 23.7, 22.6, 10.1, 5.9 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 18.3, 20.3, 16.1, 5.4, 11.3, 13.6, 10.6, 7.8 ],
-        "divisional": [ 8.9, 6.8, 11.4, 2.6, 5.5, 7.1, 5.5, 3.8 ],
-        "championship": [ 5.6, 2.5, 4.3, 1.7, 3.5, 4, 3.1, 2.4 ],
-        "superbowl": [ 1.8, 0.9, 1.5, 0.5, 1.1, 2.2, 1.7, 0.8 ]
+        "divisional": [ 22.6, 25.3, 0, 8.4, 12.2, 0, 0, 7.1 ],
+        "championship": [ 8.3, 6.7, 0, 3.1, 4.5, 0, 0, 2.6 ],
+        "superbowl": [ 3.2, 22.2, 0, 1.2, 1.7, 0, 0, 1 ]
       },
       "projectedPoints": {
         "wildcard": [ 18.3, 20.3, 16.1, 5.4, 11.3, 13.6, 10.6, 7.8 ],
-        "divisional": [ 18.3, 20.3, 16.1, 5.4, 11.3, 13.6, 10.6, 7.8 ],
-        "championship": [ 18.3, 20.3, 16.1, 5.4, 11.3, 13.6, 10.6, 7.8 ],
-        "superbowl": [ 18.3, 20.3, 16.1, 5.4, 11.3, 13.6, 10.6, 7.8 ]
+        "divisional": [ 22.6, 25.3, 16.1, 8.4, 12.2, 13.6, 10.6, 7.1 ],
+        "championship": [ 22.6, 25.3, 16.1, 8.4, 12.2, 13.6, 10.6, 7.1 ],
+        "superbowl": [ 22.6, 25.3, 16.1, 8.4, 12.2, 13.6, 10.6, 7.1 ]
       },
       "variance": {
         "wildcard": [ 68.1, 52.2, 77.4, 204.5, 56.3, 109.2, 160, 237.2 ],
@@ -182,22 +189,22 @@
         { "slot": "FLEX", "playerName": "DJ Moore", "draftRound": 8, "nflTeam": "CHI" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 18.32, null, 3.6, null, 19.4, 17.2, 0, 17.9 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 20.1, 0, 13.2, 0, 9.7, 12.2, 2.5, 8.7 ],
-        "divisional": [ 13.3, 11.3, 8.8, 7.3, 6.8, 7.5, 1.5, 4.2 ],
-        "championship": [ 9.4, 8, 6.2, 5.2, 2.6, 2.8, 0.6, 2.7 ],
-        "superbowl": [ 5.4, 5.5, 3.6, 3.5, 0.9, 1.3, 0.3, 0.9 ]
+        "divisional": [ 22.7, 14.5, 11.5, 5.2, 0, 11.2, 2.2, 8.5 ],
+        "championship": [ 14, 11.3, 7.1, 4, 0, 4.7, 0.9, 3.1 ],
+        "superbowl": [ 7.1, 6.6, 3.6, 2.4, 0, 2.4, 0.5, 1.2 ]
       },
       "projectedPoints": {
         "wildcard": [ 20.1, 11.3, 13.2, 7.3, 9.7, 12.2, 2.5, 8.7 ],
-        "divisional": [ 20.1, 11.3, 13.2, 7.3, 9.7, 12.2, 2.5, 8.7 ],
-        "championship": [ 20.1, 11.3, 13.2, 7.3, 9.7, 12.2, 2.5, 8.7 ],
-        "superbowl": [ 20.1, 11.3, 13.2, 7.3, 9.7, 12.2, 2.5, 8.7 ]
+        "divisional": [ 22.7, 14.5, 11.5, 5.2, 9.7, 11.2, 2.2, 8.5 ],
+        "championship": [ 22.7, 14.5, 11.5, 5.2, 9.7, 11.2, 2.2, 8.5 ],
+        "superbowl": [ 22.7, 14.5, 11.5, 5.2, 9.7, 11.2, 2.2, 8.5 ]
       },
       "variance": {
         "wildcard": [ 51.1, 0, 121, 0, 29.2, 121, 204.5, 121 ],
@@ -220,22 +227,22 @@
         { "slot": "FLEX", "playerName": "Tetairoa McMillan", "draftRound": 8, "nflTeam": "CAR" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 37.02, 16.1, 15, 10.6, 2.9, 15.5, 11.6, 13.1 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 16.4, 15.4, 12.2, 8.9, 10.8, 14.7, 12.6, 12.5 ],
-        "divisional": [ 9.1, 10.9, 8.6, 5.9, 5.6, 12.7, 7, 2.2 ],
-        "championship": [ 1.7, 4.1, 3.3, 4.2, 3.2, 6.5, 1.3, 0.6 ],
-        "superbowl": [ 0.5, 1.4, 1.1, 2.4, 1.8, 0.4, 0.4, 0.1 ]
+        "divisional": [ 0, 0, 0, 8.2, 0, 12.9, 0, 0 ],
+        "championship": [ 0, 0, 0, 5.1, 0, 8.7, 0, 0 ],
+        "superbowl": [ 0, 0, 0, 2.6, 0, 4.7, 0, 0 ]
       },
       "projectedPoints": {
         "wildcard": [ 16.4, 15.4, 12.2, 8.9, 10.8, 14.7, 12.6, 12.5 ],
-        "divisional": [ 16.4, 15.4, 12.2, 8.9, 10.8, 14.7, 12.6, 12.5 ],
-        "championship": [ 16.4, 15.4, 12.2, 8.9, 10.8, 14.7, 12.6, 12.5 ],
-        "superbowl": [ 16.4, 15.4, 12.2, 8.9, 10.8, 14.7, 12.6, 12.5 ]
+        "divisional": [ 16.4, 15.4, 12.2, 8.2, 10.8, 12.9, 12.6, 12.5 ],
+        "championship": [ 16.4, 15.4, 12.2, 8.2, 10.8, 12.9, 12.6, 12.5 ],
+        "superbowl": [ 16.4, 15.4, 12.2, 8.2, 10.8, 12.9, 12.6, 12.5 ]
       },
       "variance": {
         "wildcard": [ 33.4, 46.2, 98, 189.1, 47.6, 87.4, 146.4, 204.5 ],
@@ -258,22 +265,22 @@
         { "slot": "FLEX", "playerName": "Romeo Doubs", "draftRound": 8, "nflTeam": "GB" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 28.16, 4.6, 12.2, 6.2, 15.4, 4.2, 8.6, 26.4 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 19.2, 12.4, 13.5, 12.2, 12.1, 11.1, 13.7, 9.4 ],
-        "divisional": [ 16.5, 8.2, 11.6, 5.2, 8, 6.9, 5.8, 5.2 ],
-        "championship": [ 8.5, 5.8, 6, 2.2, 5.7, 2.5, 2.5, 1 ],
-        "superbowl": [ 0.5, 3.3, 0.3, 0.8, 3.3, 1.2, 0.9, 0.3 ]
+        "divisional": [ 22.9, 12.9, 16, 0, 10.4, 10.4, 0, 0 ],
+        "championship": [ 15.4, 8, 10.8, 0, 6.4, 4.4, 0, 0 ],
+        "superbowl": [ 8.4, 4, 5.9, 0, 3.3, 2.2, 0, 0 ]
       },
       "projectedPoints": {
         "wildcard": [ 19.2, 12.4, 13.5, 12.2, 12.1, 11.1, 13.7, 9.4 ],
-        "divisional": [ 19.2, 12.4, 13.5, 12.2, 12.1, 11.1, 13.7, 9.4 ],
-        "championship": [ 19.2, 12.4, 13.5, 12.2, 12.1, 11.1, 13.7, 9.4 ],
-        "superbowl": [ 19.2, 12.4, 13.5, 12.2, 12.1, 11.1, 13.7, 9.4 ]
+        "divisional": [ 22.9, 12.9, 16, 12.2, 10.4, 10.4, 13.7, 9.4 ],
+        "championship": [ 22.9, 12.9, 16, 12.2, 10.4, 10.4, 13.7, 9.4 ],
+        "superbowl": [ 22.9, 12.9, 16, 12.2, 10.4, 10.4, 13.7, 9.4 ]
       },
       "variance": {
         "wildcard": [ 21.9, 104, 87.4, 109.2, 29.2, 133.4, 204.5, 174.2 ],
@@ -296,22 +303,31 @@
         { "slot": "FLEX", "playerName": "Demario Douglas", "draftRound": 8, "nflTeam": "NE" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [
+          32.22,
+          6.8,
+          5.1,
+          2.2,
+          11.4,
+          -0.1,
+          null,
+          1.3
+        ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 22.5, 16.6, 13.8, 13.4, 6.6, 12.3, 0, 4.7 ],
-        "divisional": [ 11.7, 9.2, 8.5, 7, 5.7, 4.6, 8.7, 3.1 ],
-        "championship": [ 3.3, 1.7, 3.1, 3.9, 2.9, 1, 6.1, 2.2 ],
-        "superbowl": [ 1.2, 0.5, 1.5, 2.2, 0.2, 0.3, 4.2, 1.3 ]
+        "divisional": [ 26.4, 0, 2, 0, 6.4, 0, 3.2, 2.9 ],
+        "championship": [ 13.7, 0, 0.8, 0, 4.3, 0, 2.5, 1.8 ],
+        "superbowl": [ 7.1, 0, 0.4, 0, 2.3, 0, 1.5, 0.9 ]
       },
       "projectedPoints": {
         "wildcard": [ 22.5, 16.6, 13.8, 13.4, 6.6, 12.3, 8.7, 4.7 ],
-        "divisional": [ 22.5, 16.6, 13.8, 13.4, 6.6, 12.3, 8.7, 4.7 ],
-        "championship": [ 22.5, 16.6, 13.8, 13.4, 6.6, 12.3, 8.7, 4.7 ],
-        "superbowl": [ 22.5, 16.6, 13.8, 13.4, 6.6, 12.3, 8.7, 4.7 ]
+        "divisional": [ 26.4, 16.6, 2, 13.4, 6.4, 12.3, 3.2, 2.9 ],
+        "championship": [ 26.4, 16.6, 2, 13.4, 6.4, 12.3, 3.2, 2.9 ],
+        "superbowl": [ 26.4, 16.6, 2, 13.4, 6.4, 12.3, 3.2, 2.9 ]
       },
       "variance": {
         "wildcard": [ 27.3, 58.5, 87.4, 98, 43.6, 237.2, 0, 160 ],
@@ -334,22 +350,22 @@
         { "slot": "FLEX", "playerName": "Blake Corum", "draftRound": 8, "nflTeam": "LAR" }
       ],
       "scores": {
-        "wildcard": [ null, null, null, null, null, null, null, null ],
+        "wildcard": [ 19.88, 7.1, 23.9, 12.66, 1.6, null, 11.8, 7.8 ],
         "divisional": [ null, null, null, null, null, null, null, null ],
         "championship": [ null, null, null, null, null, null, null, null ],
         "superbowl": [ null, null, null, null, null, null, null, null ]
       },
       "expectedPoints": {
         "wildcard": [ 18.1, 17.8, 13.4, 12.6, 14.9, 0, 10.8, 7.8 ],
-        "divisional": [ 6.1, 9.2, 7, 4.2, 5, 12.2, 5.6, 6.7 ],
-        "championship": [ 2.2, 2.6, 3.9, 1.6, 1.8, 7.4, 1.6, 3.5 ],
-        "superbowl": [ 0.8, 1, 2.2, 0.6, 0.7, 3.8, 0.6, 0.2 ]
+        "divisional": [ 22.9, 14.7, 0, 14.1, 0, 16.3, 8.3, 8.2 ],
+        "championship": [ 6, 7.6, 0, 3.7, 0, 8.5, 4.3, 5.5 ],
+        "superbowl": [ 20.1, 4, 0, 12.4, 0, 4.3, 2.2, 3 ]
       },
       "projectedPoints": {
         "wildcard": [ 18.1, 17.8, 13.4, 12.6, 14.9, 12.2, 10.8, 7.8 ],
-        "divisional": [ 18.1, 17.8, 13.4, 12.6, 14.9, 12.2, 10.8, 7.8 ],
-        "championship": [ 18.1, 17.8, 13.4, 12.6, 14.9, 12.2, 10.8, 7.8 ],
-        "superbowl": [ 18.1, 17.8, 13.4, 12.6, 14.9, 12.2, 10.8, 7.8 ]
+        "divisional": [ 22.9, 14.7, 13.4, 14.1, 0, 16.3, 8.3, 8.2 ],
+        "championship": [ 22.9, 14.7, 13.4, 14.1, 0, 16.3, 8.3, 8.2 ],
+        "superbowl": [ 22.9, 14.7, 13.4, 14.1, 0, 16.3, 8.3, 8.2 ]
       },
       "variance": {
         "wildcard": [ 21.9, 58.5, 160, 146.4, 26, 0, 121, 174.2 ],
@@ -361,72 +377,72 @@
   ],
   "winProbabilities": [
     {
-      "teamName": "Colin Quality Learing Center",
-      "expectedTotal": 215.8,
-      "finishProbabilities": [ 20.8, 16.7, 14.5, 12.5, 11.6, 9.2, 8.4, 6.3 ],
-      "winProbability": 20.8,
-      "top3Probability": 52,
-      "lastPlaceProbability": 6.3
-    },
-    {
-      "teamName": "Brady",
-      "expectedTotal": 212.2,
-      "finishProbabilities": [ 17.7, 16.2, 15, 13.2, 11.5, 10.6, 9.1, 6.8 ],
-      "winProbability": 17.7,
-      "top3Probability": 48.9,
-      "lastPlaceProbability": 6.8
-    },
-    {
-      "teamName": "Robbie",
-      "expectedTotal": 211.6,
-      "finishProbabilities": [ 17.7, 15.7, 14.2, 13, 11.3, 11.1, 9.6, 7.4 ],
-      "winProbability": 17.7,
-      "top3Probability": 47.6,
-      "lastPlaceProbability": 7.4
-    },
-    {
       "teamName": "Cody",
-      "expectedTotal": 192.6,
-      "finishProbabilities": [ 11, 11.1, 11.5, 11.8, 12.9, 13.3, 13.8, 14.6 ],
-      "winProbability": 11,
-      "top3Probability": 33.6,
-      "lastPlaceProbability": 14.6
-    },
-    {
-      "teamName": "Dylan",
-      "expectedTotal": 198.5,
-      "finishProbabilities": [ 11, 12.7, 12.9, 14, 13.3, 13.1, 12.3, 10.7 ],
-      "winProbability": 11,
-      "top3Probability": 36.6,
-      "lastPlaceProbability": 10.7
-    },
-    {
-      "teamName": "Patrick",
-      "expectedTotal": 186,
-      "finishProbabilities": [ 7.5, 9.7, 10.7, 11.7, 13.4, 14.3, 15.5, 17.2 ],
-      "winProbability": 7.5,
-      "top3Probability": 27.9,
-      "lastPlaceProbability": 17.2
-    },
-    {
-      "teamName": "Ryan",
-      "expectedTotal": 184,
-      "finishProbabilities": [ 7.2, 8.7, 10.6, 12.1, 13.1, 13.6, 15.8, 19.1 ],
-      "winProbability": 7.2,
-      "top3Probability": 26.4,
-      "lastPlaceProbability": 19.1
+      "expectedTotal": 259.1,
+      "finishProbabilities": [ 31.3, 23.2, 17.3, 11.9, 9, 5.2, 1.7, 0.4 ],
+      "winProbability": 31.3,
+      "top3Probability": 71.9,
+      "lastPlaceProbability": 0.4
     },
     {
       "teamName": "Jason",
-      "expectedTotal": 185.9,
-      "finishProbabilities": [ 7.2, 9.1, 10.7, 11.8, 12.9, 14.7, 15.6, 18 ],
+      "expectedTotal": 250.8,
+      "finishProbabilities": [ 23.6, 20.9, 18.6, 14.7, 11.4, 7.4, 2.9, 0.5 ],
+      "winProbability": 23.6,
+      "top3Probability": 63.1,
+      "lastPlaceProbability": 0.5
+    },
+    {
+      "teamName": "Colin Quality Learing Center",
+      "expectedTotal": 247.2,
+      "finishProbabilities": [ 19.8, 20.7, 19.7, 16.7, 12.3, 7.9, 2.5, 0.5 ],
+      "winProbability": 19.8,
+      "top3Probability": 60.2,
+      "lastPlaceProbability": 0.5
+    },
+    {
+      "teamName": "Brady",
+      "expectedTotal": 226.2,
+      "finishProbabilities": [ 10, 12.3, 14.8, 17.4, 18.3, 16.8, 8.2, 2.3 ],
+      "winProbability": 10,
+      "top3Probability": 37.1,
+      "lastPlaceProbability": 2.3
+    },
+    {
+      "teamName": "Patrick",
+      "expectedTotal": 221.1,
+      "finishProbabilities": [ 7.8, 11.2, 13.8, 16.4, 18.5, 19.3, 10, 3.1 ],
+      "winProbability": 7.8,
+      "top3Probability": 32.8,
+      "lastPlaceProbability": 3.1
+    },
+    {
+      "teamName": "Robbie",
+      "expectedTotal": 221.9,
+      "finishProbabilities": [ 7.2, 11, 13.6, 17.8, 20, 18.4, 9.3, 2.8 ],
       "winProbability": 7.2,
-      "top3Probability": 27,
-      "lastPlaceProbability": 18
+      "top3Probability": 31.8,
+      "lastPlaceProbability": 2.8
+    },
+    {
+      "teamName": "Dylan",
+      "expectedTotal": 164,
+      "finishProbabilities": [ 0.2, 0.5, 1.7, 3.9, 7.8, 17.6, 42.2, 26.2 ],
+      "winProbability": 0.2,
+      "top3Probability": 2.4,
+      "lastPlaceProbability": 26.2
+    },
+    {
+      "teamName": "Ryan",
+      "expectedTotal": 135.1,
+      "finishProbabilities": [ 0, 0.2, 0.5, 1.3, 2.9, 7.4, 23.3, 64.4 ],
+      "winProbability": 0,
+      "top3Probability": 0.8,
+      "lastPlaceProbability": 64.4
     }
   ],
   "lastUpdated": {
     "variance": "2026-01-09T22:53:01.065Z",
-    "winProbabilities": "2026-01-09T22:53:14.213Z"
+    "winProbabilities": "2026-01-13T23:26:50.109Z"
   }
 }

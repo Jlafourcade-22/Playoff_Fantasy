@@ -59,7 +59,7 @@ function getFantasyData(teamName) {
     expectedDivisional: team.expectedPoints?.divisional[index] || 0,
     expectedChampionship: team.expectedPoints?.championship[index] || 0,
     expectedSuperbowl: team.expectedPoints?.superbowl[index] || 0,
-    expectedTotal: (team.expectedPoints?.wildcard[index] || 0) + (team.expectedPoints?.divisional[index] || 0) + 
+    expectedTotal: (team.scores.wildcard[index] || 0) + (team.expectedPoints?.divisional[index] || 0) + 
                    (team.expectedPoints?.championship[index] || 0) + (team.expectedPoints?.superbowl[index] || 0)
   }));
 
@@ -79,7 +79,7 @@ function getFantasyData(teamName) {
     expectedTotal: 0
   };
   teamTotal.total = teamTotal.wildcard + teamTotal.divisional + teamTotal.championship + teamTotal.superbowl;
-  teamTotal.expectedTotal = teamTotal.expectedWildcard + teamTotal.expectedDivisional + teamTotal.expectedChampionship + teamTotal.expectedSuperbowl;
+  teamTotal.expectedTotal = teamTotal.wildcard + teamTotal.expectedDivisional + teamTotal.expectedChampionship + teamTotal.expectedSuperbowl;
 
   return {
     teamName: team.teamName,

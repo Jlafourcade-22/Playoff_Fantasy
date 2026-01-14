@@ -8,7 +8,7 @@ const roundNum = (num) => Math.round(num * 10) / 10;
 
 // Calculate expected points for each team
 data.teams.forEach(team => {
-  const rounds = ['wildcard', 'divisional', 'championship', 'superbowl'];
+  const rounds = [ 'divisional', 'championship', 'superbowl'];
   
   rounds.forEach((round, roundIndex) => {
     // For each player in the roster

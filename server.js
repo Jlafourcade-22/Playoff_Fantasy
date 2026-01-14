@@ -3,8 +3,9 @@ const cors = require('cors');
 const path = require('path');
 const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, updateTeamProjections, readData } = require('./data/mockDb');
 const { getPlayerGameStatsByWeek, getPlayerGameStatsByTeam, getPlayerGameProjectionsByWeek, getPlayerPropsByScoreID, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
+const { getPlayerStatsByTeams } = require('./services/espnScraperService');
 const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
-const { calculateFantasyPoints } = require('./utils/fantasyPoints');
+const { calculateFantasyPoints, getPointsBreakdown } = require('./utils/fantasyPoints');
 const { calculateWinProbabilities } = require('./utils/winProbability');
 
 const app = express();
@@ -194,14 +195,23 @@ app.get('/api/update-scores/:round', async (req, res) => {
           
           if (playerStats) {
             const fantasyPoints = calculateFantasyPoints(playerStats);
+            const breakdown = getPointsBreakdown(playerStats);
             updatedScores[index] = fantasyPoints;
             updatedCount++;
             
             updateResults.push({
               team: team.teamName,
               player: player.playerName,
+              nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
+              stats: {
+                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
+                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
+                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
+                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
+              },
+              breakdown: breakdown,
               updated: true
             });
           } else {
@@ -295,14 +305,23 @@ app.get('/api/update-scores-all/:round', async (req, res) => {
           
           if (playerStats) {
             const fantasyPoints = calculateFantasyPoints(playerStats);
+            const breakdown = getPointsBreakdown(playerStats);
             updatedScores[index] = fantasyPoints;
             updatedCount++;
             
             updateResults.push({
               team: team.teamName,
               player: player.playerName,
+              nflTeam: playerTeam,
               previousScore: team.scores[round][index],
               newScore: fantasyPoints,
+              stats: {
+                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
+                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
+                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
+                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
+              },
+              breakdown: breakdown,
               updated: true
             });
           } else {
@@ -637,6 +656,283 @@ app.post('/api/update-projections-props/:round', async (req, res) => {
     console.error('Error updating projections from props:', error);
     res.status(500).json({ 
       error: 'Failed to update projections from props',
+      message: error.message 
+    });
+  }
+});
+
+// ============================================
+// NEW ESPN SCRAPER ENDPOINTS
+// ============================================
+
+// Test ESPN scraper - just scrape and return raw data
+app.get('/api/test-espn-scraper', async (req, res) => {
+  try {
+    const { gameId, teams } = req.query;
+    
+    if (gameId) {
+      // Test with specific game ID
+      console.log(`\n🔍 Testing ESPN scraper with game ID: ${gameId}`);
+      const { scrapeBoxScore } = require('./services/espnScraperService');
+      const result = await scrapeBoxScore(gameId);
+      
+      res.json({
+        success: true,
+        gameId,
+        teamsFound: result.teams,
+        totalPlayers: result.players.length,
+        players: result.players,
+        rawData: result
+      });
+    } else if (teams) {
+      // Test with team abbreviations (comma-separated)
+      const teamList = teams.split(',').map(t => t.trim().toUpperCase());
+      console.log(`\n🔍 Testing ESPN scraper with teams: ${teamList.join(', ')}`);
+      
+      const result = await getPlayerStatsByTeams(teamList);
+      
+      res.json({
+        success: true,
+        teams: teamList,
+        totalPlayers: result.length,
+        players: result
+      });
+    } else {
+      res.status(400).json({
+        error: 'Please provide either gameId or teams parameter',
+        examples: [
+          '/api/test-espn-scraper?gameId=401772981',
+          '/api/test-espn-scraper?teams=GB,CHI'
+        ]
+      });
+    }
+  } catch (error) {
+    console.error('Error testing ESPN scraper:', error);
+    res.status(500).json({
+      error: 'ESPN scraper test failed',
+      message: error.message,
+      stack: error.stack
+    });
+  }
+});
+
+// Update scores from ESPN box scores (active games only)
+app.get('/api/update-scores-espn/:round', async (req, res) => {
+  try {
+    const round = req.params.round.toLowerCase();
+    
+    // Validate round
+    if (!['wildcard', 'divisional', 'championship', 'superbowl'].includes(round)) {
+      return res.status(400).json({ error: 'Invalid round. Must be: wildcard, divisional, championship, or superbowl' });
+    }
+
+    // Read data to get games and teams
+    const data = readData();
+    const games = data.nflGames[round];
+    
+    if (!games || games.length === 0) {
+      return res.status(400).json({ error: `No games scheduled for ${round} round` });
+    }
+
+    // Get teams playing in active games
+    const activeTeams = getActiveTeams(games);
+    
+    if (activeTeams.length === 0) {
+      return res.json({ 
+        message: 'No games currently active',
+        activeGames: 0,
+        teamsUpdated: 0
+      });
+    }
+
+    // Get unique NFL teams that are active
+    const activeNFLTeams = [...new Set(activeTeams)];
+    
+    console.log(`\n🔍 Scraping ESPN for active teams: ${activeNFLTeams.join(', ')}`);
+    
+    // Scrape stats from ESPN box scores
+    const allPlayerStats = await getPlayerStatsByTeams(activeNFLTeams);
+    
+    console.log(`✅ Found stats for ${allPlayerStats.length} players from ESPN`);
+    
+    let updatedCount = 0;
+    const updateResults = [];
+
+    // Loop through all fantasy teams and update scores for players on active NFL teams
+    for (const team of data.teams) {
+      const updatedScores = [...team.scores[round]]; // Clone current scores
+      
+      team.roster.forEach((player, index) => {
+        const playerTeam = player.nflTeam;
+        
+        // Only update stats for players whose NFL teams are currently playing
+        if (activeNFLTeams.includes(playerTeam)) {
+          const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
+          
+          if (playerStats) {
+            const fantasyPoints = calculateFantasyPoints(playerStats);
+            const breakdown = getPointsBreakdown(playerStats);
+            updatedScores[index] = fantasyPoints;
+            updatedCount++;
+            
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              nflTeam: playerTeam,
+              previousScore: team.scores[round][index],
+              newScore: fantasyPoints,
+              stats: {
+                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
+                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
+                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
+                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
+              },
+              breakdown: breakdown,
+              updated: true,
+              source: 'ESPN'
+            });
+          } else {
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              previousScore: team.scores[round][index],
+              newScore: team.scores[round][index],
+              updated: false,
+              reason: 'Player stats not found in ESPN box score',
+              source: 'ESPN'
+            });
+          }
+        }
+      });
+      
+      // Update the team's scores if any changed
+      if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
+        updateTeamScores(team.teamName, round, updatedScores);
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `Updated scores for ${round} round from ESPN`,
+      activeGames: activeNFLTeams.length / 2,
+      playersUpdated: updatedCount,
+      source: 'ESPN Box Score',
+      details: updateResults
+    });
+
+  } catch (error) {
+    console.error('Error updating scores from ESPN:', error);
+    res.status(500).json({ 
+      error: 'Failed to update scores from ESPN',
+      message: error.message 
+    });
+  }
+});
+
+// Update scores for ALL games in a round from ESPN (regardless of active status)
+app.get('/api/update-scores-all-espn/:round', async (req, res) => {
+  try {
+    const round = req.params.round.toLowerCase();
+    
+    // Validate round
+    if (!['wildcard', 'divisional', 'championship', 'superbowl'].includes(round)) {
+      return res.status(400).json({ error: 'Invalid round. Must be: wildcard, divisional, championship, or superbowl' });
+    }
+
+    // Read data to get games and teams
+    const data = readData();
+    const games = data.nflGames[round];
+    
+    if (!games || games.length === 0) {
+      return res.status(400).json({ error: `No games scheduled for ${round} round` });
+    }
+
+    // Get ALL teams playing in the round (not just active ones)
+    const allNFLTeams = [];
+    games.forEach(game => {
+      allNFLTeams.push(game.homeTeam, game.awayTeam);
+    });
+    const uniqueNFLTeams = [...new Set(allNFLTeams)];
+    
+    console.log(`\n🔍 Scraping ESPN for ALL teams in ${round}: ${uniqueNFLTeams.join(', ')}`);
+    
+    // Scrape stats from ESPN box scores
+    const allPlayerStats = await getPlayerStatsByTeams(uniqueNFLTeams);
+    
+    console.log(`✅ Found stats for ${allPlayerStats.length} players from ESPN`);
+    
+    let updatedCount = 0;
+    const updateResults = [];
+
+    // Loop through all fantasy teams and update scores for ALL players in this round
+    for (const team of data.teams) {
+      const updatedScores = [...team.scores[round]]; // Clone current scores
+      
+      team.roster.forEach((player, index) => {
+        const playerTeam = player.nflTeam;
+        
+        // Update stats for ALL players whose NFL teams are in this round's games
+        if (uniqueNFLTeams.includes(playerTeam)) {
+          const playerStats = findPlayerStats(allPlayerStats, player.playerName, playerTeam);
+          
+          if (playerStats) {
+            const fantasyPoints = calculateFantasyPoints(playerStats);
+            const breakdown = getPointsBreakdown(playerStats);
+            updatedScores[index] = fantasyPoints;
+            updatedCount++;
+            
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              nflTeam: playerTeam,
+              previousScore: team.scores[round][index],
+              newScore: fantasyPoints,
+              stats: {
+                passing: `${breakdown.passing.yards} yds, ${breakdown.passing.touchdowns} TDs, ${breakdown.passing.interceptions} INT`,
+                rushing: `${breakdown.rushing.yards} yds, ${breakdown.rushing.touchdowns} TDs`,
+                receiving: `${breakdown.receiving.receptions} rec, ${breakdown.receiving.yards} yds, ${breakdown.receiving.touchdowns} TDs`,
+                misc: breakdown.misc.fumblesLost > 0 ? `${breakdown.misc.fumblesLost} fumbles lost` : null
+              },
+              breakdown: breakdown,
+              updated: true,
+              source: 'ESPN'
+            });
+          } else {
+            updateResults.push({
+              team: team.teamName,
+              player: player.playerName,
+              previousScore: team.scores[round][index],
+              newScore: team.scores[round][index],
+              updated: false,
+              reason: 'Player stats not found in ESPN box score',
+              source: 'ESPN'
+            });
+          }
+        }
+      });
+      
+      // Update the team's scores if any changed
+      // COMMENTED OUT FOR TESTING - Uncomment to save changes to data.json
+      // if (JSON.stringify(updatedScores) !== JSON.stringify(team.scores[round])) {
+      //   updateTeamScores(team.teamName, round, updatedScores);
+      // }
+    }
+
+    res.json({
+      success: true,
+      message: `Updated scores for ALL games in ${round} round from ESPN (TEST MODE - not saving to file)`,
+      totalGames: games.length,
+      teamsInRound: uniqueNFLTeams.length,
+      playersUpdated: updatedCount,
+      source: 'ESPN Box Score',
+      testMode: true,
+      details: updateResults
+    });
+
+  } catch (error) {
+    console.error('Error updating all scores from ESPN:', error);
+    res.status(500).json({ 
+      error: 'Failed to update all scores from ESPN',
       message: error.message 
     });
   }
