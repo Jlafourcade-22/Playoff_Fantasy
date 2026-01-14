@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const { getAllTeams, getTeamByName, getFantasyData, updateTeamScores, updateTeamProjections, readData } = require('./data/mockDb');
 const { getPlayerGameStatsByWeek, getPlayerGameStatsByTeam, getPlayerGameProjectionsByWeek, getPlayerPropsByScoreID, findPlayerStats, roundToWeek } = require('./services/sportsDataService');
-const { getPlayerStatsByTeams } = require('./services/espnScraperService');
+const { getPlayerStatsByTeams, getPlayerStatsByGames } = require('./services/espnScraperService');
 const { shouldFetchLiveStats, getActiveTeams } = require('./utils/gameHelpers');
 const { calculateFantasyPoints, getPointsBreakdown } = require('./utils/fantasyPoints');
 const { calculateWinProbabilities } = require('./utils/winProbability');
@@ -750,8 +750,8 @@ app.get('/api/update-scores-espn/:round', async (req, res) => {
     
     console.log(`\n🔍 Scraping ESPN for active teams: ${activeNFLTeams.join(', ')}`);
     
-    // Scrape stats from ESPN box scores
-    const allPlayerStats = await getPlayerStatsByTeams(activeNFLTeams);
+    // Scrape stats from ESPN box scores - pass games array for date lookup
+    const allPlayerStats = await getPlayerStatsByTeams(activeNFLTeams, new Date(), games);
     
     console.log(`✅ Found stats for ${allPlayerStats.length} players from ESPN`);
     
@@ -854,10 +854,10 @@ app.get('/api/update-scores-all-espn/:round', async (req, res) => {
     });
     const uniqueNFLTeams = [...new Set(allNFLTeams)];
     
-    console.log(`\n🔍 Scraping ESPN for ALL teams in ${round}: ${uniqueNFLTeams.join(', ')}`);
+    console.log(`\n🔍 Scraping ESPN for ALL games in ${round}: ${games.length} matchups`);
     
-    // Scrape stats from ESPN box scores
-    const allPlayerStats = await getPlayerStatsByTeams(uniqueNFLTeams);
+    // Fetch stats using game matchups (not by date or team)
+    const allPlayerStats = await getPlayerStatsByGames(games, round);
     
     console.log(`✅ Found stats for ${allPlayerStats.length} players from ESPN`);
     

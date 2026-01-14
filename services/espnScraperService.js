@@ -2,76 +2,135 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 /**
+ * Find game IDs for specific team matchups from ESPN scoreboard
+ * @param {Array<Object>} games - Array of game objects with homeTeam and awayTeam
+ * @param {string} round - Round name (for logging)
+ * @returns {Promise<Array>} Array of game IDs
+ */
+async function findGameIdsByMatchups(games, round = '') {
+  try {
+    console.log(`\nFinding game IDs for ${games.length} ${round} matchups...`);
+    
+    // Get date range from games
+    const dates = [...new Set(games.map(g => {
+      const gameDate = new Date(g.gameTime);
+      return `${gameDate.getFullYear()}${String(gameDate.getMonth() + 1).padStart(2, '0')}${String(gameDate.getDate()).padStart(2, '0')}`;
+    }))];
+    
+    console.log(`Searching dates: ${dates.join(', ')}`);
+    
+    const gameIds = [];
+    
+    // Search each date for games
+    for (const dateStr of dates) {
+      const url = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=3&dates=${dateStr}`;
+      
+      try {
+        const response = await axios.get(url);
+        
+        if (response.data && response.data.events) {
+          console.log(`  Found ${response.data.events.length} games on ${dateStr}`);
+          
+          response.data.events.forEach(event => {
+            const gameId = event.id;
+            const competitions = event.competitions[0];
+            
+            if (competitions && competitions.competitors && competitions.competitors.length === 2) {
+              const team1 = competitions.competitors[0].team.abbreviation;
+              const team2 = competitions.competitors[1].team.abbreviation;
+              
+              // Check if this matchup is in our games list
+              const matchingGame = games.find(g => 
+                (g.homeTeam === team1 && g.awayTeam === team2) ||
+                (g.homeTeam === team2 && g.awayTeam === team1)
+              );
+              
+              if (matchingGame) {
+                gameIds.push(gameId);
+                console.log(`    ✅ Found game: ${team2} @ ${team1} (ID: ${gameId})`);
+              }
+            }
+          });
+        }
+      } catch (err) {
+        console.error(`  Error fetching date ${dateStr}:`, err.message);
+      }
+    }
+    
+    console.log(`\nTotal game IDs found: ${gameIds.length}`);
+    return gameIds;
+  } catch (error) {
+    console.error('Error finding game IDs by matchups:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Get player stats for specific games
+ * @param {Array<Object>} games - Array of game objects with homeTeam, awayTeam, gameTime
+ * @param {string} round - Round name (for logging)
+ * @returns {Promise<Array>} Player statistics
+ */
+async function getPlayerStatsByGames(games, round = '') {
+  try {
+    // Find game IDs for these matchups
+    const gameIds = await findGameIdsByMatchups(games, round);
+    
+    if (gameIds.length === 0) {
+      console.log('No game IDs found for matchups');
+      return [];
+    }
+    
+    // Fetch stats from all games
+    const allStats = await getPlayerStatsFromGames(gameIds);
+    
+    return allStats;
+  } catch (error) {
+    console.error('Error getting player stats by games:', error.message);
+    return [];
+  }
+}
+
+/**
  * Find game IDs for NFL teams on ESPN
- * Scrapes ESPN's NFL scoreboard to find game IDs
+ * Uses ESPN's scoreboard API to find games
  * @param {Array<string>} teams - Array of team abbreviations (e.g., ["GB", "CHI"])
  * @param {Date} date - Date to search for games (optional, defaults to today)
  * @returns {Promise<Object>} Map of team abbreviations to game IDs
  */
 async function findGameIds(teams, date = new Date()) {
   try {
-    // Format date as YYYYMMDD for ESPN URL
+    // Format date as YYYYMMDD for ESPN API
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const dateStr = `${year}${month}${day}`;
     
-    // ESPN scoreboard URL with date
-    const url = `https://www.espn.com/nfl/scoreboard/_/seasontype/3/dates/${dateStr}`;
+    // ESPN scoreboard API - seasontype 3 = postseason
+    const url = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=3&dates=${dateStr}`;
     
-    console.log(`Fetching ESPN scoreboard: ${url}`);
-    const response = await axios.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
-    });
+    console.log(`Fetching scoreboard: ${url}`);
+    const response = await axios.get(url);
     
-    const $ = cheerio.load(response.data);
     const gameIdMap = {};
     
-    // ESPN embeds game data in a window.__espnfitt__ variable or in data attributes
-    // Try to extract game IDs from links
-    $('a[href*="/nfl/game/"]').each((i, elem) => {
-      const href = $(elem).attr('href');
-      const match = href.match(/gameId\/(\d+)/);
-      if (match) {
-        const gameId = match[1];
+    if (response.data && response.data.events) {
+      console.log(`Found ${response.data.events.length} games on ${dateStr}`);
+      
+      response.data.events.forEach(event => {
+        const gameId = event.id;
+        const competitions = event.competitions[0];
         
-        // Try to find team abbreviations near this link
-        const section = $(elem).closest('section, div[class*="Scoreboard"], article');
-        const text = section.text();
-        
-        // Check if any of our target teams are mentioned
-        teams.forEach(team => {
-          const teamUpper = team.toUpperCase();
-          if (text.includes(teamUpper) || text.includes(getTeamFullName(team))) {
-            gameIdMap[teamUpper] = gameId;
-          }
-        });
-      }
-    });
-    
-    // If we didn't find games this way, try looking in script tags for JSON data
-    if (Object.keys(gameIdMap).length === 0) {
-      $('script').each((i, elem) => {
-        const scriptContent = $(elem).html();
-        if (scriptContent && scriptContent.includes('gameId')) {
-          // Try to extract game IDs and team info from embedded JSON
-          const gameIdMatches = scriptContent.match(/gameId["']?\s*:\s*["']?(\d+)/g);
-          if (gameIdMatches) {
-            gameIdMatches.forEach(match => {
-              const idMatch = match.match(/(\d+)/);
-              if (idMatch) {
-                const gameId = idMatch[1];
-                // Store all found game IDs - we'll verify them later
-                teams.forEach(team => {
-                  if (!gameIdMap[team.toUpperCase()]) {
-                    gameIdMap[team.toUpperCase()] = gameId;
-                  }
-                });
-              }
-            });
-          }
+        if (competitions && competitions.competitors) {
+          competitions.competitors.forEach(competitor => {
+            const teamAbbr = competitor.team.abbreviation;
+            
+            // Check if this is one of our target teams
+            if (teams.map(t => t.toUpperCase()).includes(teamAbbr.toUpperCase())) {
+              gameIdMap[teamAbbr.toUpperCase()] = gameId;
+              console.log(`  Mapped ${teamAbbr} -> game ${gameId}`);
+            }
+          });
         }
       });
     }
@@ -164,22 +223,22 @@ async function scrapeBoxScore(gameId) {
             let player = findOrCreatePlayer(playerStats, playerName, teamAbbr);
             
             if (categoryName === 'passing') {
-              player.passingCompletions = parseInt(stats['C/ATT']?.split('/')[0]) || 0;
-              player.passingAttempts = parseInt(stats['C/ATT']?.split('/')[1]) || 0;
-              player.passingYards = parseInt(stats['YDS']) || 0;
-              player.passingTouchdowns = parseInt(stats['TD']) || 0;
-              player.passingInterceptions = parseInt(stats['INT']) || 0;
-              player.sacks = parseInt(stats['SACKS']?.split('-')[0]) || 0;
+              player.PassingCompletions = parseInt(stats['C/ATT']?.split('/')[0]) || 0;
+              player.PassingAttempts = parseInt(stats['C/ATT']?.split('/')[1]) || 0;
+              player.PassingYards = parseInt(stats['YDS']) || 0;
+              player.PassingTouchdowns = parseInt(stats['TD']) || 0;
+              player.Interceptions = parseInt(stats['INT']) || 0;
+              player.Sacks = parseInt(stats['SACKS']?.split('-')[0]) || 0;
             } else if (categoryName === 'rushing') {
-              player.rushingAttempts = parseInt(stats['CAR']) || 0;
-              player.rushingYards = parseInt(stats['YDS']) || 0;
-              player.rushingTouchdowns = parseInt(stats['TD']) || 0;
+              player.RushingAttempts = parseInt(stats['CAR']) || 0;
+              player.RushingYards = parseInt(stats['YDS']) || 0;
+              player.RushingTouchdowns = parseInt(stats['TD']) || 0;
             } else if (categoryName === 'receiving') {
-              player.receptions = parseInt(stats['REC']) || 0;
-              player.receivingYards = parseInt(stats['YDS']) || 0;
-              player.receivingTouchdowns = parseInt(stats['TD']) || 0;
+              player.Receptions = parseInt(stats['REC']) || 0;
+              player.ReceivingYards = parseInt(stats['YDS']) || 0;
+              player.ReceivingTouchdowns = parseInt(stats['TD']) || 0;
             } else if (categoryName === 'fumbles') {
-              player.fumblesLost = parseInt(stats['LOST']) || 0;
+              player.FumblesLost = parseInt(stats['LOST']) || 0;
             }
             
             console.log(`    ✅ ${playerName}: ${JSON.stringify(stats)}`);
@@ -517,18 +576,18 @@ function findOrCreatePlayer(playerStats, name, team) {
     player = {
       Name: name,
       Team: team,
-      passingYards: 0,
-      passingTouchdowns: 0,
-      passingInterceptions: 0,
-      passingAttempts: 0,
-      passingCompletions: 0,
-      rushingYards: 0,
-      rushingTouchdowns: 0,
-      rushingAttempts: 0,
-      receptions: 0,
-      receivingYards: 0,
-      receivingTouchdowns: 0,
-      fumblesLost: 0,
+      PassingYards: 0,
+      PassingTouchdowns: 0,
+      Interceptions: 0,
+      PassingAttempts: 0,
+      PassingCompletions: 0,
+      RushingYards: 0,
+      RushingTouchdowns: 0,
+      RushingAttempts: 0,
+      Receptions: 0,
+      ReceivingYards: 0,
+      ReceivingTouchdowns: 0,
+      FumblesLost: 0,
       sacks: 0
     };
     playerStats.push(player);
@@ -560,13 +619,60 @@ async function getPlayerStatsFromGames(gameIds) {
 /**
  * Get player stats for specific teams
  * @param {Array<string>} teams - Array of team abbreviations
- * @param {Date} date - Date to search for games
+ * @param {Date} date - Date to search for games (optional)
+ * @param {Array<Object>} games - Optional array of game objects with gameTime
  * @returns {Promise<Array>} Player statistics for those teams
  */
-async function getPlayerStatsByTeams(teams, date = new Date()) {
+async function getPlayerStatsByTeams(teams, date = new Date(), games = null) {
   try {
-    // First, find game IDs for these teams
-    const gameIdMap = await findGameIds(teams, date);
+    let gameIdMap = {};
+    
+    // If games array is provided with gameTimes, search across those dates
+    if (games && games.length > 0) {
+      console.log(`Searching for games across multiple dates...`);
+      
+      // Get unique dates from games
+      const dates = [...new Set(games.map(g => {
+        const gameDate = new Date(g.gameTime);
+        return `${gameDate.getFullYear()}${String(gameDate.getMonth() + 1).padStart(2, '0')}${String(gameDate.getDate()).padStart(2, '0')}`;
+      }))];
+      
+      console.log(`Checking dates: ${dates.join(', ')}`);
+      
+      // Search each date
+      for (const dateStr of dates) {
+        const url = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=3&dates=${dateStr}`;
+        
+        try {
+          const response = await axios.get(url);
+          
+          if (response.data && response.data.events) {
+            console.log(`  Found ${response.data.events.length} games on ${dateStr}`);
+            
+            response.data.events.forEach(event => {
+              const gameId = event.id;
+              const competitions = event.competitions[0];
+              
+              if (competitions && competitions.competitors) {
+                competitions.competitors.forEach(competitor => {
+                  const teamAbbr = competitor.team.abbreviation;
+                  
+                  if (teams.map(t => t.toUpperCase()).includes(teamAbbr.toUpperCase())) {
+                    gameIdMap[teamAbbr.toUpperCase()] = gameId;
+                    console.log(`    Mapped ${teamAbbr} -> game ${gameId}`);
+                  }
+                });
+              }
+            });
+          }
+        } catch (err) {
+          console.error(`  Error fetching date ${dateStr}:`, err.message);
+        }
+      }
+    } else {
+      // Single date search (original behavior)
+      gameIdMap = await findGameIds(teams, date);
+    }
     
     // Get unique game IDs
     const uniqueGameIds = [...new Set(Object.values(gameIdMap))];
@@ -594,6 +700,8 @@ async function getPlayerStatsByTeams(teams, date = new Date()) {
 module.exports = {
   scrapeBoxScore,
   findGameIds,
+  findGameIdsByMatchups,
   getPlayerStatsFromGames,
-  getPlayerStatsByTeams
+  getPlayerStatsByTeams,
+  getPlayerStatsByGames
 };
