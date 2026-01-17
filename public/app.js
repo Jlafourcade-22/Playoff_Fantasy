@@ -41,7 +41,7 @@ async function loadFantasyData() {
     try {
         // First, update scores from live data (checks for active games internally)
         console.log(`Updating live scores for ${CURRENT_ROUND} round...`);
-        const updateResponse = await fetch(`/api/update-scores/${CURRENT_ROUND}`);
+        const updateResponse = await fetch(`/api/update-scores-espn/${CURRENT_ROUND}`);
         
         if (updateResponse.ok) {
             const updateResult = await updateResponse.json();
