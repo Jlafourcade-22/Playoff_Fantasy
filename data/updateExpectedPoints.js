@@ -38,6 +38,14 @@ async function updateExpectedPoints() {
       // Fetch team data from Supabase (includes roster, scores, projections)
       const teamData = await getFantasyData(team.teamName);
       
+      // Teams that have completed each round
+      const completedRounds = {
+        wildcard: ['SF', 'BUF', 'DEN', 'SEA', 'LAR', 'CHI', 'HOU', 'NE'], // All teams played wildcard
+        divisional: ['SF', 'BUF', 'DEN', 'SEA'], // Only these 4 teams have played divisional
+        championship: [], // No teams have played championship yet
+        superbowl: [] // No teams have played superbowl yet
+      };
+      
       // For each round
       rounds.forEach((round, roundIndex) => {
         const roundExpectedPoints = [];
@@ -48,11 +56,12 @@ async function updateExpectedPoints() {
           const actualScore = teamData.scores[round][playerIndex];
           const projectedPoints = teamData.projectedPoints[round][playerIndex];
           
-          // If the game has been played (actualScore is not null), use actual score
-          // Otherwise, calculate expected points using projection * probability
+          // Check if this team has completed this round
+          const hasCompleted = completedRounds[round]?.includes(nflTeam);
+          
           let expectedPoints;
           
-          if (actualScore !== null) {
+          if (hasCompleted && actualScore !== null) {
             // Game has been played - use actual score
             expectedPoints = actualScore;
             console.log(`  ${player.playerName} (${round}): Using actual score ${actualScore}`);

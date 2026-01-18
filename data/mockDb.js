@@ -45,23 +45,34 @@ function getFantasyData(teamName) {
     throw new Error(`Team "${teamName}" not found`);
   }
 
-  const data = team.roster.map((player, index) => ({
-    slot: player.slot,
-    playerName: player.playerName,
-    nflTeam: player.nflTeam,
-    wildcard: team.scores.wildcard[index],
-    divisional: team.scores.divisional[index],
-    championship: team.scores.championship[index],
-    superbowl: team.scores.superbowl[index],
-    total: (team.scores.wildcard[index] || 0) + (team.scores.divisional[index] || 0) + 
-           (team.scores.championship[index] || 0) + (team.scores.superbowl[index] || 0),
-    expectedWildcard: team.expectedPoints?.wildcard[index] || 0,
-    expectedDivisional: team.expectedPoints?.divisional[index] || 0,
-    expectedChampionship: team.expectedPoints?.championship[index] || 0,
-    expectedSuperbowl: team.expectedPoints?.superbowl[index] || 0,
-    expectedTotal: (team.scores.wildcard[index] || 0) + (team.expectedPoints?.divisional[index] || 0) + 
-                   (team.expectedPoints?.championship[index] || 0) + (team.expectedPoints?.superbowl[index] || 0)
-  }));
+  // Teams that have played divisional round
+  const divisionalPlayedTeams = ['SF', 'BUF', 'DEN', 'SEA'];
+
+  const data = team.roster.map((player, index) => {
+    // For divisional round, use actual score if team played, otherwise use expected
+    const useDivisionalActual = divisionalPlayedTeams.includes(player.nflTeam);
+    const divisionalForExpectedTotal = useDivisionalActual 
+      ? (team.scores.divisional[index] || 0)
+      : (team.expectedPoints?.divisional[index] || 0);
+
+    return {
+      slot: player.slot,
+      playerName: player.playerName,
+      nflTeam: player.nflTeam,
+      wildcard: team.scores.wildcard[index],
+      divisional: team.scores.divisional[index],
+      championship: team.scores.championship[index],
+      superbowl: team.scores.superbowl[index],
+      total: (team.scores.wildcard[index] || 0) + (team.scores.divisional[index] || 0) + 
+             (team.scores.championship[index] || 0) + (team.scores.superbowl[index] || 0),
+      expectedWildcard: team.expectedPoints?.wildcard[index] || 0,
+      expectedDivisional: team.expectedPoints?.divisional[index] || 0,
+      expectedChampionship: team.expectedPoints?.championship[index] || 0,
+      expectedSuperbowl: team.expectedPoints?.superbowl[index] || 0,
+      expectedTotal: (team.scores.wildcard[index] || 0) + divisionalForExpectedTotal + 
+                     (team.expectedPoints?.championship[index] || 0) + (team.expectedPoints?.superbowl[index] || 0)
+    };
+  });
 
   // Calculate team totals
   const teamTotal = {
@@ -79,7 +90,17 @@ function getFantasyData(teamName) {
     expectedTotal: 0
   };
   teamTotal.total = teamTotal.wildcard + teamTotal.divisional + teamTotal.championship + teamTotal.superbowl;
-  teamTotal.expectedTotal = teamTotal.wildcard + teamTotal.expectedDivisional + teamTotal.expectedChampionship + teamTotal.expectedSuperbowl;
+  
+  // For expectedTotal: use wildcard actual, then for divisional use mix of actual/expected based on which teams played
+  let divisionalExpectedTotal = 0;
+  team.roster.forEach((player, index) => {
+    const useDivisionalActual = divisionalPlayedTeams.includes(player.nflTeam);
+    divisionalExpectedTotal += useDivisionalActual 
+      ? (team.scores.divisional[index] || 0)
+      : (team.expectedPoints?.divisional[index] || 0);
+  });
+  
+  teamTotal.expectedTotal = teamTotal.wildcard + divisionalExpectedTotal + teamTotal.expectedChampionship + teamTotal.expectedSuperbowl;
 
   return {
     teamName: team.teamName,

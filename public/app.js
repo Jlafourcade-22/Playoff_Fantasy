@@ -55,7 +55,10 @@ async function loadFantasyData() {
         if (activeGamesResponse.ok) {
             const activeGamesData = await activeGamesResponse.json();
             activeTeams = activeGamesData.activeTeams || [];
-            eliminatedTeams = activeGamesData.eliminatedTeams || [];
+            // Trim whitespace from eliminated teams to fix any data entry issues
+            eliminatedTeams = (activeGamesData.eliminatedTeams || []).map(team => team.trim());
+            console.log('🔴 Eliminated Teams:', eliminatedTeams);
+            console.log('🟢 Active Teams:', activeTeams);
         }
 
         // Fetch all teams
@@ -285,6 +288,8 @@ function renderTableRows(roster) {
     return roster.map((player, index) => {
         const isActive = activeTeams.includes(player.nflTeam);
         const isEliminated = eliminatedTeams.includes(player.nflTeam);
+        
+        console.log(`Player: ${player.playerName} (${player.nflTeam}) - Active: ${isActive}, Eliminated: ${isEliminated}`);
         
         let statusClass = '';
         let pulseClass = '';
