@@ -94,12 +94,12 @@ async function getFantasyData(teamName) {
     };
   });
   
-  // Extract scores by round
+  // Extract scores by round (preserve null for games not played)
   const scores = {
-    wildcard: roster.map(p => p.score_wildcard || 0),
-    divisional: roster.map(p => p.score_divisional || 0),
-    championship: roster.map(p => p.score_championship || 0),
-    superbowl: roster.map(p => p.score_superbowl || 0)
+    wildcard: roster.map(p => p.score_wildcard !== null ? p.score_wildcard : null),
+    divisional: roster.map(p => p.score_divisional !== null ? p.score_divisional : null),
+    championship: roster.map(p => p.score_championship !== null ? p.score_championship : null),
+    superbowl: roster.map(p => p.score_superbowl !== null ? p.score_superbowl : null)
   };
   
   // Extract expected points by round
@@ -450,6 +450,43 @@ async function updateTeamProjections(teamName, round, projections) {
   return true;
 }
 
+// Update player expected points for a specific round
+async function updateTeamExpectedPoints(teamName, round, expectedPoints) {
+  if (!Array.isArray(expectedPoints) || expectedPoints.length !== 8) {
+    throw new Error('Expected points must be an array of 8 numbers');
+  }
+  
+  // Get team ID
+  const { data: team, error: teamError } = await supabase
+    .from('fantasy_teams')
+    .select('id')
+    .eq('team_name', teamName)
+    .single();
+  
+  if (teamError) throw new Error(`Team not found: ${teamError.message}`);
+  
+  // Get roster in order
+  const { data: roster, error: rosterError } = await supabase
+    .from('player_roster')
+    .select('id')
+    .eq('team_id', team.id)
+    .order('roster_order');
+  
+  if (rosterError) throw new Error(`Failed to fetch roster: ${rosterError.message}`);
+  
+  // Update each player's expected points
+  const columnName = `expected_${round}`;
+  const updatePromises = roster.map((player, index) => 
+    supabase
+      .from('player_roster')
+      .update({ [columnName]: expectedPoints[index] })
+      .eq('id', player.id)
+  );
+  
+  await Promise.all(updatePromises);
+  return true;
+}
+
 // Update last updated timestamp
 async function updateLastUpdated(updateType) {
   const { error } = await supabase
@@ -479,5 +516,6 @@ module.exports = {
   updatePlayerScoreWithBreakdown,
   updatePlayerTwoPointConversions,
   updateTeamProjections,
+  updateTeamExpectedPoints,
   updateLastUpdated
 };
