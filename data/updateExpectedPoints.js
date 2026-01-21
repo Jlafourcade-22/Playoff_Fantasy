@@ -38,13 +38,8 @@ async function updateExpectedPoints() {
       // Fetch team data from Supabase (includes roster, scores, projections)
       const teamData = await getFantasyData(team.teamName);
       
-      // Teams that have completed each round
-      const completedRounds = {
-        wildcard: ['SF', 'BUF', 'DEN', 'SEA', 'LAR', 'CHI', 'HOU', 'NE'], // All teams played wildcard
-        divisional: ['SF', 'BUF', 'DEN', 'SEA'], // Only these 4 teams have played divisional
-        championship: [], // No teams have played championship yet
-        superbowl: [] // No teams have played superbowl yet
-      };
+      // Rounds that have been completed
+      const completedRounds = ['wildcard', 'divisional'];
       
       // For each round
       rounds.forEach((round, roundIndex) => {
@@ -56,17 +51,14 @@ async function updateExpectedPoints() {
           const actualScore = teamData.scores[round][playerIndex];
           const projectedPoints = teamData.projectedPoints[round][playerIndex];
           
-          // Check if this team has completed this round
-          const hasCompleted = completedRounds[round]?.includes(nflTeam);
-          
           let expectedPoints;
           
-          if (hasCompleted && actualScore !== null) {
-            // Game has been played - use actual score
-            expectedPoints = actualScore;
-            console.log(`  ${player.playerName} (${round}): Using actual score ${actualScore}`);
+          if (completedRounds.includes(round)) {
+            // Round has been completed - use actual score if available, otherwise 0
+            expectedPoints = actualScore !== null ? actualScore : 0;
+            console.log(`  ${player.playerName} (${round}): Using actual score ${expectedPoints}`);
           } else {
-            // Game hasn't been played - use projected points * probability
+            // Round hasn't been played - use projected points * probability
             const teamProb = teamProbsArray[nflTeam];
             const probability = teamProb ? teamProb[roundIndex] : 0;
             expectedPoints = projectedPoints * probability;
