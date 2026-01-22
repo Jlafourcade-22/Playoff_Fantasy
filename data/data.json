@@ -33,7 +33,18 @@
       }
     ],
     "divisional": [],
-    "championship": [],
+    "championship": [
+      {
+        "homeTeam": "DEN",
+        "awayTeam": "NE",
+        "gameTime": "2026-01-25T20:00:00Z"
+      },
+      {
+        "homeTeam": "SEA",
+        "awayTeam": "LAR",
+        "gameTime": "2026-01-25T23:30:00Z"
+      }
+    ],
     "superbowl": []
   },
   "eliminatedTeams": [
@@ -445,6 +456,7 @@
       "lastPlaceProbability": 62.3
     }
   ],
+  "currentWeek": "championship",
   "lastUpdated": {
     "variance": "2026-01-09T22:53:01.065Z",
     "winProbabilities": "2026-01-21T19:48:29.220Z"
